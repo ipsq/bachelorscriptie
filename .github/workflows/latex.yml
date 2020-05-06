@@ -1,6 +1,9 @@
 name: Build LaTeX document
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'latex/**'
 
 jobs:
   build_latex:
@@ -11,8 +14,8 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: main.tex
+          root_file: latex/main.tex
       - name: Upload LaTeX PDF
         uses: actions/upload-artifact@v2
         with:
-          path: main.pdf
+          path: latex/main.pdf

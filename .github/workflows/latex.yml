@@ -1,0 +1,21 @@
+name: Build LaTeX document
+
+on:
+  push:
+    paths:
+    - 'latex/**'
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: latex/main.tex
+      - name: Upload LaTeX PDF
+        uses: actions/upload-artifact@v2
+        with:
+          path: latex/main.pdf

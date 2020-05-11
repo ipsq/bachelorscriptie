@@ -2,13 +2,19 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[british]{babel}
-\usepackage[style=apa]{biblatex}
+\usepackage[
+backend=biber,
+style=apa,
+citestyle=authoryear
+]{biblatex}
 \usepackage{fullpage}
 \usepackage{parskip}
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage[nameinlink]{cleveref}
 \usepackage{booktabs}
+
+\addbibresource{bibliography.bib}
 
 \begin{document}
 
@@ -24,5 +30,7 @@
 \input{sections/methodology}
 
 \input{sections/data}
+
+\printbibliography
 
 \end{document}

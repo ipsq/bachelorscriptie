@@ -1,0 +1,12 @@
+To show the positive impact big data has had on our ability to correctly model the term structure of interest rates, we will be comparing small data models with big data models. The small data models will include autoregressive, vector autoregressive, and dynamic Nelson-Siegel models. The big data models will include models utilizing diffusion indexes estimated from a macroeconomic dataset. 
+
+\section{Models}
+\subsection{Autoregressive (AR) and Vector Autoregressive (VAR) Models}
+These models are formulated as follows
+\[
+y_{t+h}(\tau) = c + \beta' W_t + \epsilon_{t+h}
+\]
+where $\tau$ denotes the maturity and $y_{t+h}(\tau)$ measures the annual yield of the bond. For the autoregressive model, $W_t$ contains lags of $y_{t+h}(\tau)$. For the vector autoregressive model, $W_t$ additionally contains explanatory variables. 
+
+\subsection{Dynamic Nelson-Siegel (DNS) Models}
+

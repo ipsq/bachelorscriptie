@@ -1,10 +1,10 @@
-\documentclass[a4paper,11pt]{report}
+\documentclass[a4paper,11pt]{article}
 
 \usepackage[a4paper]{geometry}
 \usepackage{titlesec}
 \usepackage[utf8]{inputenc}
 \usepackage[british]{babel}
-\usepackage[backend=biber,style=apa,citestyle=authoryear]{biblatex}
+\usepackage[backend=biber,style=apa,citestyle=authoryear,hyperref=true,backref=true]{biblatex}
 \usepackage{csquotes}
 \usepackage{amsmath,amsfonts,amsthm}
 \usepackage{graphicx}
@@ -12,8 +12,12 @@
 \usepackage{hyperref}
 \usepackage[nameinlink]{cleveref}
 
-\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
-\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\title{Research proposal}
+\author{Martijn Riemers}
+\date{\today}
+
+%\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
+%\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
 
 \graphicspath{figures/}
 
@@ -21,29 +25,31 @@
 
 \begin{document}
 
-\input{titlepage}
+\maketitle
 
-\chapter*{Abstract}
-TODO
+%\input{titlepage}
 
-\tableofcontents
-\newpage
+%\chapter*{Abstract}
+%\input{chapters/abstract}
 
-\chapter{Introduction}
+%\tableofcontents
+%\newpage
+
+\section{Introduction}
 \input{chapters/introduction}
 
-\chapter{Problem statements}
+\section{Problem statements}
 \input{chapters/problem}
 
-\chapter{Methodology}
+\section{Methodology}
 \input{chapters/methodology}
 
-\chapter{Data}
+\section{Data}
 \input{chapters/data}
 
-\appendix
-\chapter{Appendix One}
-\input{appendices/one}
+%\appendix
+%\chapter{Appendix One}
+%\input{appendices/one}
 
 \printbibliography
 

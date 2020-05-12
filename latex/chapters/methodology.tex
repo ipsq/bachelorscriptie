@@ -14,16 +14,40 @@ where $\hat{L}$ is the likelihood of the model, $n$ the number of observations a
 \label{sec:arvar}
 These AR($p$) and VAR($p$) models are formulated as follows
 \begin{equation}
-	y_{t+h}(\tau) = c + \beta' W_t + \epsilon_{t+h}
+	y_{t+1}(\tau) = c + \beta' W_t + \epsilon_{t+1}
 \end{equation}
-where $\tau$ denotes the maturity and $y_{t+h}(\tau)$ measures the $h-$step ahead annual yield of the bond. For the autoregressive model, $W_t$ contains $p$ lags of $y_{t+h}(\tau)$. For the vector autoregressive model, $W_t$ additionally contains yields of bonds with different maturities than $\tau$. In both models $\beta$ is a time-invariant coefficient vector and $c$ is a vector of constants (intercepts). We will be including AR(1) and VAR(1) models as a baseline. Furthermore, we will be including AR and VAR specifications with up to 5 lags of $y_{t+h}(\tau)$ included. The number of lags shall be selected using the Schwarz information criterion (SIC), see~\cref{sec:sic}. 
+where $\tau$ denotes the maturity and $y_{t+1}(\tau)$ measures the $1-$step ahead annual yield of the bond. For the autoregressive model, $W_t$ contains $p$ lags of $y_{t+1}(\tau)$. For the vector autoregressive model, $W_t$ additionally contains yields of bonds with different maturities than $\tau$. In both models $\beta$ is a time-invariant coefficient vector and $c$ is a vector of constants (intercepts). We will be including AR(1) and VAR(1) models as a baseline. Furthermore, we will be including AR and VAR specifications with up to 5 lags of $y_{t+1}(\tau)$ included. The number of lags shall be selected using the Schwarz information criterion (SIC), see~\cref{sec:sic}. 
 
 \subsection{Dynamic Nelson-Siegel (DNS) Models}
 \label{sec:dns}
 The Nelson-Siegel model, published by~\textcite{Nelson1987}, models the cross-sectional movement of the term structure using three underlying latent factors interpreted as \enquote{level}, \enquote{slope}, and \enquote{curvature}. These factors are commonly known as the \enquote{Nelson-Siegel factors}. The dynamic version of the Nelson-Siegel model was published by~\textcite[hereafter DNS]{Diebold2006}. The DNS model is formulated as follows
 \begin{equation}
-	y_{t+h}(\tau) = 
+	y_{t+1}(\tau) = \hat{\beta}_{1,t+1}^{f} + \hat{\beta}_{2,t+1}^{f} \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau}\right] + \hat{\beta}_{3,t+1}^{f} \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau} - \exp(-\lambda_t \tau)\right]
 \end{equation}
+where $\hat{\beta}_{1,t+1}^{f}$, $\hat{\beta}_{2,t+1}^{f}$, and $\hat{\beta}_{3,t+1}^{f}$ are estimated using an AR(1) model:
+\begin{equation}
+	\hat{\beta}_{i,t+1}^{f} = \hat{c}_i + \hat{\gamma}_{ii} \hat{\beta}_{i,t}^f, \quad \text{for}~i = 1,2,3
+\end{equation}
+where $\hat{c}_i$, $\hat{\gamma}_{ii}$, and $\hat{\beta}_{i,t}^f$ are scalars. Alternatively, $\hat{\beta}_{1,t+1}^{f}$, $\hat{\beta}_{2,t+1}^{f}$, and $\hat{\beta}_{3,t+1}^{f}$ can also be estimated using a VAR(1) model:
+\begin{equation}
+	\hat{\beta}_{t+1}^{f} = \hat{c} + \hat{\gamma} \hat{\beta}_t^f
+\end{equation}
+where $\hat{c}$ is a $3 \times 1$ vector, $\hat{\gamma} = \left(\hat{\gamma}_1, \hat{\gamma}_2, \hat{\gamma}_3 \right)$ with $\hat{\gamma}_j$ for $j = 1,2,3$ being a $3 \times 1$ vector, and $\hat{\beta}_t^f = \left(\hat{\beta}_{1,t}^f, \hat{\beta}_{2,t}^f, \hat{\beta}_{3,t}^f\right)'$ is a $3 \times 1$ vector. The parameters $\hat{\beta}_{1,t}^f, \hat{\beta}_{2,t}^f, \hat{\beta}_{3,t}^f$ are obtained by regressing $\left\{1, \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau}\right], \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau} - \exp(-\lambda_t \tau)\right] \right\}$ on $\mathbf{y}_t^f(\tau)$. We will consider 3 variants of $\mathbf{y}_t^f(\tau)$ in this paper, namely:
+\begin{align*}
+	\mathbf{y}_t^{10}(\tau) &= \left[y_t(12)~y_t(24)~y_t(36)~y_t(48)~y_t(60)~y_t(72)~y_t(84)~y_t(96)~y_t(108)~y_t(120) \right]', \\
+	\mathbf{y}_t^6(\tau) &= \left[y_t(12)~y_t(24)~y_t(36)~y_t(60)~y_t(84)~y_t(120) \right]', \\
+	\mathbf{y}_t^4(\tau) &= \left[y_t(12)~y_t(36)~y_t(60)~y_t(120) \right]'.
+\end{align*}
+As discussed in \textcite{Diebold2006}, we will be setting the rate of decay, $\lambda_t$, to $0.0609$.
+
+\subsection{DNS Models with Macroeconomic Variables}
+\label{sec:dnsmv}
+
+\subsection{Diffusion Index Models}
+\label{sec:dif}
+
+\subsection{DNS Models with Diffusion Indexes}
+\label{sec:dnsdif}
 
 \subsection{Diebold-Mariano (DM) Test}
 \label{sec:dmtest}

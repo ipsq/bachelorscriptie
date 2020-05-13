@@ -16,7 +16,7 @@ These AR($p$) and VAR($p$) models are formulated as follows
 \begin{equation}
 	y_{t+1}(\tau) = c + \beta' W_t + \epsilon_{t+1}
 \end{equation}
-where $\tau$ denotes the maturity and $y_{t+1}(\tau)$ measures the $1-$step ahead annual yield of the bond. For the autoregressive model, $W_t$ contains $p$ lags of $y_{t+1}(\tau)$. For the vector autoregressive model, $W_t$ additionally contains yields of bonds with different maturities than $\tau$. In both models $\beta$ is a time-invariant coefficient vector and $c$ is a vector of constants (intercepts). We will be including AR(1) and VAR(1) models as a baseline. Furthermore, we will be including AR and VAR specifications with up to 5 lags of $y_{t+1}(\tau)$ included. The number of lags shall be selected using the Schwarz information criterion (SIC), see~\cref{sec:sic}. 
+where $\tau$ denotes the maturity and $y_{t+1}(\tau)$ measures the $1-$step ahead annual yield of the bond. For the autoregressive model, $W_t$ contains $p$ lags of $y_{t+1}(\tau)$. For the vector autoregressive model, $W_t$ additionally contains yields of bonds of different maturities than $\tau$. In both models $\beta$ is a time-invariant coefficient vector and $c$ is a vector of constants (intercepts). We will be including AR(1) and VAR(1) models as a baseline. Furthermore, we will be including AR and VAR specifications with up to 5 lags of $y_{t+1}(\tau)$ included. The number of lags shall be selected using the Schwarz information criterion (SIC), see~\cref{sec:sic}. These models shall be referenced by AR(SIC) and VAR(SIC). 
 
 \subsection{Dynamic Nelson-Siegel (DNS) Models}
 \label{sec:dns}
@@ -26,13 +26,15 @@ The Nelson-Siegel model, published by~\textcite{Nelson1987}, models the cross-se
 \end{equation}
 where $\hat{\beta}_{1,t+1}^{f}$, $\hat{\beta}_{2,t+1}^{f}$, and $\hat{\beta}_{3,t+1}^{f}$ are estimated using an AR(1) model:
 \begin{equation}
+\label{eq:dnsar}
 	\hat{\beta}_{i,t+1}^{f} = \hat{c}_i + \hat{\gamma}_{ii} \hat{\beta}_{i,t}^f, \quad \text{for}~i = 1,2,3
 \end{equation}
 where $\hat{c}_i$, $\hat{\gamma}_{ii}$, and $\hat{\beta}_{i,t}^f$ are scalars. Alternatively, $\hat{\beta}_{1,t+1}^{f}$, $\hat{\beta}_{2,t+1}^{f}$, and $\hat{\beta}_{3,t+1}^{f}$ can also be estimated using a VAR(1) model:
 \begin{equation}
+\label{eq:dnsvar}
 	\hat{\beta}_{t+1}^{f} = \hat{c} + \hat{\gamma} \hat{\beta}_t^f
 \end{equation}
-where $\hat{c}$ is a $3 \times 1$ vector, $\hat{\gamma} = \left(\hat{\gamma}_1, \hat{\gamma}_2, \hat{\gamma}_3 \right)$ with $\hat{\gamma}_j$ for $j = 1,2,3$ being a $3 \times 1$ vector, and $\hat{\beta}_t^f = \left(\hat{\beta}_{1,t}^f, \hat{\beta}_{2,t}^f, \hat{\beta}_{3,t}^f\right)'$ is a $3 \times 1$ vector. The parameters $\hat{\beta}_{1,t}^f, \hat{\beta}_{2,t}^f, \hat{\beta}_{3,t}^f$ are obtained by regressing $\left\{1, \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau}\right], \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau} - \exp(-\lambda_t \tau)\right] \right\}$ on $\mathbf{y}_t^f(\tau)$. We will consider 3 variants of $\mathbf{y}_t^f(\tau)$ in this paper, namely:
+where $\hat{c}$ is a $3 \times 1$ vector, $\hat{\beta}_t^f = \left(\hat{\beta}_{1,t}^f, \hat{\beta}_{2,t}^f, \hat{\beta}_{3,t}^f\right)'$ a $3 \times 1$ vector, and $\hat{\gamma} = \left(\hat{\gamma}_1, \hat{\gamma}_2, \hat{\gamma}_3 \right)$, with $\hat{\gamma}_j$ a $3 \times 1$ vector, for $j = 1,2,3$. The parameters $\hat{\beta}_{1,t}^f, \hat{\beta}_{2,t}^f, \hat{\beta}_{3,t}^f$ are obtained by regressing $\left\{1, \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau}\right], \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau} - \exp(-\lambda_t \tau)\right] \right\}$ on $\mathbf{y}_t^f(\tau)$. We will consider 3 variants of $\mathbf{y}_t^f(\tau)$ in this paper, namely:
 \begin{align*}
 	\mathbf{y}_t^{10}(\tau) &= \left[y_t(12)~y_t(24)~y_t(36)~y_t(48)~y_t(60)~y_t(72)~y_t(84)~y_t(96)~y_t(108)~y_t(120) \right]', \\
 	\mathbf{y}_t^6(\tau) &= \left[y_t(12)~y_t(24)~y_t(36)~y_t(60)~y_t(84)~y_t(120) \right]', \\
@@ -42,9 +44,19 @@ As discussed in \textcite{Diebold2006}, we will be setting the rate of decay, $\
 
 \subsection{DNS Models with Macroeconomic Variables}
 \label{sec:dnsmv}
+The DNS model, described in~\cref{sec:dns}, can be extended by including macroeconomic variables in the AR(1) model, given in~\cref{eq:dnsar}, as follows:
+\begin{equation}
+	\hat{\beta}_{i,t+1}^{f} = \hat{c}_i + \hat{\gamma}_{ii} \hat{\beta}_{i,t}^f + \hat{\alpha}_i' M_t, \quad \text{for}~i = 1,2,3
+\end{equation}
+where $\hat{\alpha}_i$ is a $3 \times 1$ vector, and $M_t$ is a $3 \times 1$ vector containing the macroeconomic variables \enquote{manufacturing capacity utilization}, \enquote{the federal funds rate}, and \enquote{the annual personal consumption expenditures price deflator}. Analogous to the AR(1) model, the VAR(1) given in~\cref{eq:dnsvar}, can also be extended by including macroeconomic variables:
+\begin{equation}
+	\hat{\beta}_{t+1}^{f} = \hat{c} + \hat{\gamma} \hat{\beta}_t^f + \hat{\alpha} M_t
+\end{equation}
+where $\hat{\alpha} = \left(\hat{\alpha}_1, \hat{\alpha}_2, \hat{\alpha}_3 \right)$, with $\hat{\alpha}_j$ a $3 \times 1$ vector, for $j = 1,2,3$.
 
 \subsection{Diffusion Index Models}
 \label{sec:dif}
+The Diffusion Index Model, published by~\textcites[hereafter DIF]{Stock2002a,Stock2002b}, is a dynamic factor model based on Principal Component Analysis (PCA). 
 
 \subsection{DNS Models with Diffusion Indexes}
 \label{sec:dnsdif}

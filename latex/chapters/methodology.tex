@@ -72,15 +72,30 @@ where $F_t^b$ is defined as in~\cref{sec:dif} and $\hat{\xi}$ is a conformably s
 \begin{equation}
 	\hat{\beta}_{t+1}^{f} = \hat{c} + \hat{\Gamma} \hat{\beta}_t^f + \hat{\Xi} F_t^b,
 \end{equation}
-where $\hat{\Xi}$ is a conformably sized (depending on the amount of factors included) matrix of coefficients.
+where $\hat{\Xi}$ is a conformably sized (depending on the amount of factors included) matrix of coefficients. All other terms are conformably defined, see~\cref{sec:dns}.
 
 \subsection{Latent factors estimation}
 \label{sec:latentfactorestimation}
 \subsubsection{Principal Component Analysis (PCA)}
 \label{sec:pca}
 
+
 \subsubsection{Sparse Principal Component Analysis (SPCA)}
 \label{sec:spca}
 
 \subsection{Diebold-Mariano (DM) Test}
 \label{sec:dmtest}
+The Diebold-Mariano Test, published by~\textcite[hereafter DM]{Diebold1994}, is a predictive accuracy test between two models. The hypotheses are defined as follows:
+\begin{align*}
+	H_0 : E\left[L(u_{0,t+h}) - L(u_{1,t+h})\right] = 0, \\
+	H_A : E\left[L(u_{0,t+h}) - L(u_{1,t+h})\right] \neq 0,
+\end{align*}
+where $L(\cdot)$ is a loss function, and $u_{0,t+h}$ and $u_{1,t+h}$ are $h$-step ahead forecast errors. In practice, we only observe estimates of these out-of-sample $h$-step ahead forecasts, i.e. $\hat{u}_{0,t+h}$ and $\hat{u}_{1,t+h}$. The standard version of the DM predictive accuracy test is formulated as follows:
+\begin{equation}
+	DM_p = \frac{\bar{d_t}}{\hat{\sigma}_{\bar{d}_t}} \overset{d}{\rightarrow} N(0,1),
+\end{equation}
+where
+\begin{equation}
+	\bar{d}_t = \frac{1}{P} \sum_{t=R+1}^{T} d_t,\ d_t = L(\hat{u}_{0,t+h}) - L(\hat{u}_{1,t+h}),\ \text{and}\ \hat{\sigma}_{\bar{d}_t} = \frac{\hat{\sigma}_{d_t}}{\sqrt{P}}.
+\end{equation}
+In the formulation above, $P$ is defined as the number of forecasts, $R$ is defined as the number of observations in the training sample, and $T = P + R$. 

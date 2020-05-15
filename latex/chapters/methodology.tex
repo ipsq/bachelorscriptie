@@ -60,7 +60,7 @@ Diffusion Index Models, also commonly referred to as \enquote{factor augmented f
 \begin{equation}
 	y_{t+1}(\tau) = c + \beta' W_t + \xi' F_t^b + \eta' F_t^s + \epsilon_{t+1},
 \end{equation}
-where $F_t^b$ contains either 1, 2, or 3 latent factors, estimated from the set of macroeconomic variables, using either PCA (see~\cref{sec:pca}) or SPCA (see~\cref{sec:spca}), $F_t^s$ contains either 1, 2, or 3 latent factors, estimated with PCA (see~\cref{sec:pca}), from a set of 10 yields given by $\mathbf{y}_t^{10}(\tau)$, see~\cref{sec:dns}, and $\xi$ and $\eta$ are conformably sized (depending on the amount of factors included) vectors of coefficients. 
+where $F_t^b$ contains either 1, 2, or 3 latent factors, estimated from the set of macroeconomic variables, using either PCA or SPCA (see~\cref{sec:spca}), $F_t^s$ contains either 1, 2, or 3 latent factors, estimated with PCA, from a set of 10 yields given by $\mathbf{y}_t^{10}(\tau)$, see~\cref{sec:dns}, and $\xi$ and $\eta$ are conformably sized (depending on the amount of factors included) vectors of coefficients. 
 
 \subsection{DNS Models with Diffusion Indexes}
 \label{sec:dnsdif}
@@ -74,14 +74,13 @@ where $F_t^b$ is defined as in~\cref{sec:dif} and $\hat{\xi}$ is a conformably s
 \end{equation}
 where $\hat{\Xi}$ is a conformably sized (depending on the amount of factors included) matrix of coefficients. All other terms are conformably defined, see~\cref{sec:dns}.
 
-\subsection{Latent factors estimation}
-\label{sec:latentfactorestimation}
-\subsubsection{Principal Component Analysis (PCA)}
-\label{sec:pca}
-
-
-\subsubsection{Sparse Principal Component Analysis (SPCA)}
+\subsection{Sparse Principal Component Analysis (SPCA)}
 \label{sec:spca}
+Diffusion indexes estimated with Principal Component Analysis create linear combinations of the underlying predictor variables with all non-zero factor loadings. This negatively affects the parsimony of forecasting models. Techniques have been published to estimate principal components with sparse factor loadings, see~\textcite{Zou2006}. One of these techniques is called the \enquote{elastic net}, formulated as follows:
+\begin{equation}
+	\theta_{elastic\ net} = (1 + \lambda_2) \arg \underset{\theta}{\min} \left\{{\left\| y - \sum_{i=0}^{N} X_i \theta_i \right\|}^2 + \lambda_1 \sum_{j=1}^N \left|\theta_j\right| + \lambda_2 \sum_{j=1}^N \theta_j^2 \right\}
+\end{equation}
+where $y$ is a $T \times 1$ target vector, $X_i = \left(X_{1,i}, \dots, X_{T,i}\right)'$ is a $T \times 1$ predictor vector, and $\lambda_1$ and $\lambda_2$ are tuning parameters.
 
 \subsection{Diebold-Mariano (DM) Test}
 \label{sec:dmtest}

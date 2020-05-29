@@ -8,7 +8,7 @@ Estimation of the models is done using least squares and, where necessary, (spar
 Monthly yield forecasts for the horizons $h = 1-$, $3-$, and $12-$steps ahead are constructed for the bond maturities $\tau = 1-$, $2-$, $3-$, $5-$, and $10-$years. 
 Performance of these models shall be assessed by mean square forecast error (MSFE) and models shall be compared for predictive accuracy using~\textcite[hereafter DM]{Diebold1994}. 
 
-\subsection{Schwarz information criterion (SIC)}
+\section{Schwarz information criterion (SIC)}
 \label{sec:sic}
 The Schwarz information criterion, also commonly referred to as the Bayesian information criterion, published by~\textcite[hereafter SIC]{Schwarz1978} is a model selection criterium, closely related to the Akaike information criterion~\parencite{Akaike1974}. 
 It is defined as follows
@@ -17,7 +17,7 @@ It is defined as follows
 \end{equation}
 where $\hat{L}$ is the likelihood of the model, $n$ the number of observations and $k$ the number of model parameters estimated. The difference between SIC and AIC is the higher penalty given for the addition of extra parameters to compensate for the increase in likelihood.
 
-\subsection{Autoregressive (AR) and Vector Autoregressive (VAR) Models}
+\section{Autoregressive (AR) and Vector Autoregressive (VAR) Models}
 \label{sec:arvar}
 These AR($p$) and VAR($p$) models are formulated as follows:
 \begin{equation}
@@ -31,7 +31,7 @@ Furthermore, we will be including AR and VAR specifications with up to 5 lags of
 The number of lags shall be selected using the Schwarz information criterion (SIC), see~\cref{sec:sic}. 
 These models shall be referenced by AR(SIC) and VAR(SIC). 
 
-\subsection{Dynamic Nelson-Siegel (DNS) Models}
+\section{Dynamic Nelson-Siegel (DNS) Models}
 \label{sec:dns}
 The Nelson-Siegel model, published by~\textcite{Nelson1987}, models the cross-sectional movement of the term structure using three underlying latent factors interpreted as \enquote{level}, \enquote{slope}, and \enquote{curvature}. 
 These factors are commonly known as the \enquote{Nelson-Siegel factors}. 
@@ -61,7 +61,7 @@ We will consider 3 variants of $\mathbf{y}_t^f(\tau)$ in this paper, namely:
 \end{align*}
 As discussed in \textcite{Diebold2006}, we will be setting the rate of decay, $\lambda_t$, to $0.0609$.
 
-\subsection{DNS Models with Macroeconomic Variables}
+\section{DNS Models with Macroeconomic Variables}
 \label{sec:dnsmv}
 The DNS model, described in~\cref{sec:dns}, can be extended by including macroeconomic variables in the AR(1) model, given in~\cref{eq:dnsar}, as follows:
 \begin{equation}
@@ -76,7 +76,7 @@ Analogous to the AR(1) model, the VAR(1) given in~\cref{eq:dnsvar}, can also be 
 where $\hat{\mathrm{A}} = \left(\hat{\alpha}_1, \hat{\alpha}_2, \hat{\alpha}_3 \right)$, with $\hat{\alpha}_j$ a $3 \times 1$ vector, for $j = 1,2,3$. 
 All other terms are conformably defined, see~\cref{sec:dns}.
 
-\subsection{Diffusion Index Models}
+\section{Diffusion Index Models}
 \label{sec:dif}
 Diffusion Index Models, also commonly referred to as \enquote{factor augmented forecast models}, as published by~\textcite[hereafter DIF]{Stock2002a,Stock2002b}, is an extension to regular forecast models, mostly (vector-)autoregressive models, supplemented by a vector of latent factors. 
 This model is formulated as follows:
@@ -85,7 +85,7 @@ This model is formulated as follows:
 \end{equation}
 where $F_t^b$ contains either 1, 2, or 3 latent factors, estimated from the set of macroeconomic variables, using either PCA or SPCA (see~\cref{sec:spca}), $F_t^s$ contains either 1, 2, or 3 latent factors, estimated with PCA, from a set of 10 yields given by $\mathbf{y}_t^{10}(\tau)$, see~\cref{sec:dns}, and $\xi$ and $\eta$ are conformably sized (depending on the amount of factors included) vectors of coefficients. 
 
-\subsection{DNS Models with Diffusion Indexes}
+\section{DNS Models with Diffusion Indexes}
 \label{sec:dnsdif}
 The DNS model given in~\cref{sec:dns}, can also be extended by including diffusion indexes. The extended version of the AR model is formulated as follows:
 \begin{equation}
@@ -100,7 +100,7 @@ Analogous to the AR(1) model, the VAR(1) given in~\cref{eq:dnsvar}, can also be 
 where $\hat{\Xi}$ is a conformably sized (depending on the amount of factors included) matrix of coefficients. 
 All other terms are conformably defined, see~\cref{sec:dns}.
 
-\subsection{Sparse Principal Component Analysis (SPCA)}
+\section{Sparse Principal Component Analysis (SPCA)}
 \label{sec:spca}
 Diffusion indexes estimated with Principal Component Analysis create linear combinations of the underlying predictor variables with all non-zero factor loadings. 
 This negatively affects the parsimony of forecasting models. 
@@ -111,7 +111,7 @@ One of these techniques is called the \enquote{elastic net}, formulated as follo
 \end{equation}
 where $y$ is a $T \times 1$ target vector, $X_i = \left(X_{1,i}, \dots, X_{T,i}\right)'$ is a $T \times 1$ predictor vector, and $\lambda_1$ and $\lambda_2$ are tuning parameters.
 
-\subsection{Diebold-Mariano (DM) Test}
+\section{Diebold-Mariano (DM) Test}
 \label{sec:dmtest}
 The Diebold-Mariano Test, published by~\textcite[hereafter DM]{Diebold1994}, is a predictive accuracy test between two models. The hypotheses are defined as follows:
 \begin{align*}

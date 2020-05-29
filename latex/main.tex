@@ -1,28 +1,53 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper,11pt]{report}
 
+\usepackage[a4paper,margin=1in]{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage{fullpage}
-\usepackage{parskip}
-\usepackage{amsmath}
+\usepackage[british]{babel}
+\usepackage[backend=biber,style=apa,hyperref=true,backref=true]{biblatex}
+\usepackage{csquotes}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
 \usepackage{hyperref}
 \usepackage[nameinlink]{cleveref}
-\usepackage{booktabs}
+\usepackage{titlesec}
+
+\titlespacing*{\chapter}{0pt}{-50pt}{20pt}
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\graphicspath{figures/}
+
+\addbibresource{references.bib}
 
 \begin{document}
 
 \input{titlepage}
 
+\chapter*{Abstract}
+\input{chapters/abstract}
+
 \tableofcontents
-\clearpage
+\newpage
 
-\input{sections/introduction}
+\chapter{Introduction}
+\input{chapters/introduction}
 
-\input{sections/methodology}
+\chapter{Methodology}
+\input{chapters/methodology}
 
-\input{sections/data}
+\chapter{Data}
+\input{chapters/data}
 
-\input{sections/results}
+\chapter{Results}
+\input{chapters/results}
 
-\input{sections/conclusion}
+\chapter{Conclusion}
+\input{chapters/conclusion}
+
+\appendix
+\chapter{Appendix One}
+\input{appendices/one}
+
+\printbibliography
 
 \end{document}

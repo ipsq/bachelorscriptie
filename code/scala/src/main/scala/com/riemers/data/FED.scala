@@ -6,21 +6,21 @@ import java.time.format.DateTimeFormatter
 
 import breeze.linalg.DenseMatrix
 import com.riemers.HTTP
+import com.riemers.ts.{CsvToTimeSeriesParser, TimeSeries}
 import zio._
 import zio.console.Console
 import zio.stream.{ZStream, ZTransducer}
 
-import scala.collection.immutable.ArraySeq
-import scala.collection.mutable
-
 trait FED {
-  val getData: ZStream[Any, Throwable, (LocalDate, Map[String, Double])]
+  def getTimeSeries: ZIO[Any, Throwable, TimeSeries]
 
-  val getYields: ZStream[Any, Throwable, (LocalDate, Array[Double])]
+  def getData: ZStream[Any, Throwable, (LocalDate, Map[String, Double])]
 
-  val getMonthlyYields: ZStream[Any, Throwable, (LocalDate, Array[Double])]
+  def getYields: ZStream[Any, Throwable, (LocalDate, Array[Double])]
 
-  val getMonthlyYieldsMatrix: ZIO[Any, Throwable, DenseMatrix[Double]]
+  def getMonthlyYields: ZStream[Any, Throwable, (LocalDate, Array[Double])]
+
+  def getMonthlyYieldsMatrix: ZIO[Any, Throwable, DenseMatrix[Double]]
 }
 
 object FED {
@@ -35,57 +35,27 @@ object FED {
     val url = new URL("https://www.federalreserve.gov/data/yield-curve-tables/feds200628.csv")
     val format: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-    override val getData: ZStream[Any, Throwable, (LocalDate, Map[String, Double])] = {
-      def process(chunk: Chunk[String], headers: Seq[String]): ZIO[Any, Throwable, Chunk[(LocalDate, Map[String, Double])]] =
-        chunk.mapM { s =>
-          s.split(',') match {
-            case Array(dateField, rest@_*) => for {
-              date <- ZIO.effect(LocalDate.parse(dateField, format))
-              rest <- ZIO.effect(headers.zip(rest.map(_.toDoubleOption.getOrElse(Double.NaN))).toMap)
-            } yield (date, rest)
-          }
-        }
-
-      val transducer: ZTransducer[Any, Throwable, String, (LocalDate, Map[String, Double])] = ZTransducer {
-        for {
-          ref <- ZRef.makeManaged[Option[Seq[String]]](None)
-          push = (in: Option[Chunk[String]]) => in match {
-            case Some(chunk) =>
-              ref.get.flatMap {
-                case Some(headers) => process(chunk, headers)
-                case None =>
-                  val headers = ArraySeq.unsafeWrapArray(chunk.head.split(',').drop(1))
-                  for {
-                    _ <- ref.set(Some(headers))
-                    c <- process(chunk.tail, headers)
-                  } yield c
-              }
-            case None => UIO(Chunk.empty)
-          }
-        } yield push
-      }
-
+    /**
+     * Gets the full data set from the Federal Reserve.
+     */
+    override def getData: ZStream[Any, Throwable, (LocalDate, Map[String, Double])] = {
       http.getBodyAsString(url)
         .transduce(ZTransducer.splitLines)
         .drop(9)
-        .transduce(transducer)
+        .transduce(dataWithDateTransducer(format))
     }
 
-    override val getYields: ZStream[Any, Throwable, (LocalDate, Array[Double])] =
-      getData.map {
-        case (date, map) =>
-          date -> {
-            val arr = new Array[Double](yields.length)
-            var i = 0
-            yields.foreach { key =>
-              arr(i) = map(key)
-              i += 1
-            }
-            arr
-          }
-      }
+    /**
+     * Filters the original data set to only contain the keys we care about.
+     */
+    override def getYields: ZStream[Any, Throwable, (LocalDate, Array[Double])] =
+      mapToArrayWithKeys(yields, getData)
 
-    override val getMonthlyYields: ZStream[Any, Throwable, (LocalDate, Array[Double])] = {
+    /**
+     * Limits the original sample to a monthly sample selecting the last observation
+     * of each month.
+     */
+    override def getMonthlyYields: ZStream[Any, Throwable, (LocalDate, Array[Double])] = {
       type P = (LocalDate, Array[Double])
       def process(chunk: Chunk[P], default: Option[P] = None): (Chunk[P], Option[P]) = {
         chunk.foldLeft[(Chunk[P], Option[P])]((Chunk.empty, default)) {
@@ -129,33 +99,36 @@ object FED {
       }.transduce(transducer)
     }
 
-    override val getMonthlyYieldsMatrix: ZIO[Any, Throwable, DenseMatrix[Double]] =
-      getMonthlyYields.fold(new mutable.ArrayBuilder.ofDouble) {
-        case (builder, (_, values)) =>
-          builder.addAll(values)
-      }.map { builder =>
-        val doubles = builder.result()
-        val rows = doubles.length / yields.length
-        val cols = yields.length
+    /**
+     * Folds the Array[Double] into a row major dense matrix.
+     */
+    override def getMonthlyYieldsMatrix: ZIO[Any, Throwable, DenseMatrix[Double]] =
+      sampleFilter(getMonthlyYields)
+        .run(denseMatrixSink(yields.length))
 
-        DenseMatrix.create(rows, cols, doubles, 0, cols, isTranspose = true)
-      }
+    override def getTimeSeries: ZIO[Any, Throwable, TimeSeries] = http.getBodyAsString(url)
+      .transduce(ZTransducer.splitLines)
+      .drop(9)
+      .run(CsvToTimeSeriesParser.sink(format))
   }
 
   val live: ZLayer[Has[HTTP] with Console, Nothing, Has[FED]] = ZLayer.fromService[HTTP, FED] { http =>
     new Live(http)
   }
 
-  val getData: ZStream[Has[FED], Throwable, (LocalDate, Map[String, Double])] =
+  def getData: ZStream[Has[FED], Throwable, (LocalDate, Map[String, Double])] =
     ZStream.accessStream(_.get.getData)
 
-  val getYields: ZStream[Has[FED], Throwable, (LocalDate, Array[Double])] =
+  def getYields: ZStream[Has[FED], Throwable, (LocalDate, Array[Double])] =
     ZStream.accessStream(_.get.getYields)
 
-  val getMonthlyYields: ZStream[Has[FED], Throwable, (LocalDate, Array[Double])] =
+  def getMonthlyYields: ZStream[Has[FED], Throwable, (LocalDate, Array[Double])] =
     ZStream.accessStream(_.get.getMonthlyYields)
 
-  val getMonthlyYieldsMatrix: ZIO[Has[FED], Throwable, DenseMatrix[Double]] =
+  def getMonthlyYieldsMatrix: ZIO[Has[FED], Throwable, DenseMatrix[Double]] =
     ZIO.accessM(_.get.getMonthlyYieldsMatrix)
+
+  def getTimeSeries: ZIO[Has[FED], Throwable, TimeSeries] =
+    ZIO.accessM(_.get.getTimeSeries)
 
 }

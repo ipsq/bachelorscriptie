@@ -14,8 +14,10 @@ object Main extends zio.App {
       HTTP.urlConnection >+>
       FED.live
 
-    FED.getMonthlyYieldsMatrix
-      .flatMap(m => console.putStrLn(m.toString(80, 1000)))
+    (for {
+      ts <- FED.getTimeSeries
+      _ <- console.putStrLn(ts.resampleMonthly.toString)
+    } yield ())
       .exitCode
       .provideLayer(layer)
   }

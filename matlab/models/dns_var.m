@@ -1,4 +1,4 @@
-function [yHat] = dns_ar(y, trainingMaturities)
+function [yHat] = dns_var(y, trainingMaturities)
     lambda0 = 0.0609;
     Xtrain = [ones(size(trainingMaturities')) (1-exp(-lambda0*trainingMaturities'))./(lambda0*trainingMaturities') ...
         ((1-exp(-lambda0*trainingMaturities'))./(lambda0*trainingMaturities')-exp(-lambda0*trainingMaturities'))];
@@ -10,21 +10,14 @@ function [yHat] = dns_ar(y, trainingMaturities)
         beta(j,:) = EstMdlOLS.Coefficients.Estimate';
     end
     
-    mod1 = arima('Constant',NaN,'ARLags',1,'Distribution','Gaussian');
-    res1 = estimate(mod1,beta(:,1),'Display','off');
-    mod2 = arima('Constant',NaN,'ARLags',1,'Distribution','Gaussian');
-    res2 = estimate(mod2,beta(:,2),'Display','off');
-    mod3 = arima('Constant',NaN,'ARLags',1,'Distribution','Gaussian');
-    res3 = estimate(mod3,beta(:,3),'Display','off');
-    
-    fbeta1 = forecast(res1, 1, beta(:,1));
-    fbeta2 = forecast(res2, 1, beta(:,2));
-    fbeta3 = forecast(res3, 1, beta(:,3));
+    mod = varm(3,1);
+    res = estimate(mod,beta,'Display','off');
+    fbeta = forecast(res, 1, beta);
     
     maturities = [12 24 36 60 120]';
     X = [ones(size(maturities)) (1-exp(-lambda0*maturities))./(lambda0*maturities) ...
         ((1-exp(-lambda0*maturities))./(lambda0*maturities)-exp(-lambda0*maturities))];
     
-    yHat = X * [fbeta1 fbeta2 fbeta3]';
+    yHat = X * fbeta';
 end
 

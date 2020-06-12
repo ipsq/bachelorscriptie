@@ -21,7 +21,7 @@ sample = timerange('2000-01-01', '2007-12-01', 'months');
 cols = [1, 2, 3, 5, 10]; % tau = 1, 2, 3, 5, 10
 y = yields(sample, cols);
 
-nModels = 11;
+nModels = 14;
 forecasts = zeros(size(y, 1), size(y, 2), nModels);
 
 ticBytes(gcp);
@@ -48,6 +48,9 @@ parfor i=1:size(y,1)
     f(:, 9) = dns_ar(trainingFullYields, [12 24 36 48 60 72 84 96 108 120]);
     f(:, 10) = dns_ar(trainingFullYields, [12 24 36 60 84 120]);
     f(:, 11) = dns_ar(trainingFullYields, [12 36 60 120]);
+    f(:, 12) = dns_var(trainingFullYields, [12 24 36 48 60 72 84 96 108 120]);
+    f(:, 13) = dns_var(trainingFullYields, [12 24 36 60 84 120]);
+    f(:, 14) = dns_var(trainingFullYields, [12 36 60 120]);
     
     forecasts(i, :, :) = f;
 end

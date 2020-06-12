@@ -1,4 +1,4 @@
-function [yHat] = dns_ar(y, trainingMaturities)
+function [yHat] = dns_ar_factors(y, trainingMaturities, f)
     lambda0 = 0.0609;
     Xtrain = [ones(size(trainingMaturities')) (1-exp(-lambda0*trainingMaturities'))./(lambda0*trainingMaturities') ...
         ((1-exp(-lambda0*trainingMaturities'))./(lambda0*trainingMaturities')-exp(-lambda0*trainingMaturities'))];

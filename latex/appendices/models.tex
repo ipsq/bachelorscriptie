@@ -1,0 +1,80 @@
+\begin{table}[h]
+\caption{Models used in forecasting}
+\label{tab:model-description}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+\toprule
+\multicolumn{1}{c}{Model} & \multicolumn{1}{c}{Description}                                                                                                              \\ \midrule
+AR(1)                     & Autoregressive model with one lag                                                                                                            \\
+VAR(1)                    & Five-dimensional vector autoregressive model with one lag                                                                                    \\
+VAR(1)+FB1(PCA)           & VAR(1) model with one principle component added, principle component analysis based on all 105 macroeconomic variables                       \\
+VAR(1)+FB2(PCA)           & VAR(1) model with two principle components added, principle component analysis based on all 105 macroeconomic variables                      \\
+VAR(1)+FB1(SPCA)          & VAR(1) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables         \\
+VAR(1)+FB2(SPCA)          & VAR(1) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables        \\
+AR(SIC)                   & Autoregressive model with lag(s) selected by the Schwarz information criterion                                                               \\
+VAR(SIC)                  & Five-dimensional vector autoregressive model with lag(s) selected by the Schwarz information criterion                                       \\
+VAR(SIC)+FB1(PCA)         & VAR(SIC) model with one principle component added, principle component analysis based on all 105 macroeconomic variables                     \\
+VAR(SIC)+FB2(PCA)         & VAR(SIC) model with two principle components added, principle component analysis based on all 105 macroeconomic variables                    \\
+VAR(SIC)+FB1(SPCA)        & VAR(SIC) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
+VAR(SIC)+FB2(SPCA)        & VAR(SIC) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(1)                    & Dynamic Nelson-Siegel (DNS) model with underlying AR(1) factor specifications fitted with ten-dimensional yields: maturity $\tau = 12, 24, 36, 48, 60, 72, 84, 96, 108, 120$\ months \\
+DNS(2)                    & DNS model with underlying AR(1) factor specifications fitted with six-dimensional yields: maturity $\tau = 12, 24, 36, 60, 84, 120$\ months  \\
+DNS(3)                    & DNS model with underlying AR(1) factor specifications fitted with four-dimensional yields: maturity $\tau = 12, 36, 60, 120$\ months         \\
+DNS(4)                    & DNS model with underlying VAR(1) factor specifications fitted with ten-dimensional yields: maturity $\tau = 12, 24, 36, 48, 60, 72, 84, 96, 108, 120$\ months \\
+DNS(5)                    & DNS model with underlying VAR(1) factor specifications fitted with six-dimensional yields: maturity $\tau = 12, 24, 36, 60, 84, 120$\ months \\
+DNS(6)                    & DNS model with underlying VAR(1) factor specifications fitted with four-dimensional yields: maturity $\tau = 12, 36, 60, 120$\ months        \\ 
+DNS(1)+FB1(PCA)           & DNS(1) model with one principle component added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(2)+FB1(PCA)           & DNS(2) model with one principle component added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(3)+FB1(PCA)           & DNS(3) model with one principle component added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(4)+FB1(PCA)           & DNS(4) model with one principle component added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(5)+FB1(PCA)           & DNS(5) model with one principle component added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(6)+FB1(PCA)           & DNS(6) model with one principle component added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(1)+FB2(PCA)           & DNS(1) model with two principle components added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(2)+FB2(PCA)           & DNS(2) model with two principle components added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(3)+FB2(PCA)           & DNS(3) model with two principle components added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(4)+FB2(PCA)           & DNS(4) model with two principle components added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(5)+FB2(PCA)           & DNS(5) model with two principle components added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(6)+FB2(PCA)           & DNS(6) model with two principle components added, principle component analysis based on all 105 macroeconomic variables \\
+DNS(1)+FB1(SPCA)          & DNS(1) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(2)+FB1(SPCA)          & DNS(2) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(3)+FB1(SPCA)          & DNS(3) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(4)+FB1(SPCA)          & DNS(4) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(5)+FB1(SPCA)          & DNS(5) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(6)+FB1(SPCA)          & DNS(6) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(1)+FB2(SPCA)          & DNS(1) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(2)+FB2(SPCA)          & DNS(2) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(3)+FB2(SPCA)          & DNS(3) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(4)+FB2(SPCA)          & DNS(4) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(5)+FB2(SPCA)          & DNS(5) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(6)+FB2(SPCA)          & DNS(6) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DNS(1)+MAC                & DNS(1) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation \\
+DNS(2)+MAC                & DNS(2) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation \\
+DNS(3)+MAC                & DNS(3) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation \\
+DNS(4)+MAC                & DNS(4) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation \\
+DNS(5)+MAC                & DNS(5) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation \\
+DNS(6)+MAC                & DNS(6) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation \\
+DIF(1)                    & Diffusion index model with one principle component estimator based on all ten-dimensional yields \\
+DIF(2)                    & Diffusion index model with two principle component estimator based on all ten-dimensional yields \\
+DIF(3)                    & Diffusion index model with three principle component estimator based on all ten-dimensional yields \\
+DIF(4)                    & Diffusion index model with one principle component estimator based on all 105 macroeconomic variables \\
+DIF(5)                    & Diffusion index model with two principle component estimator based on all 105 macroeconomic variables \\
+DIF(6)                    & Diffusion index model with three principle component estimator based on all 105 macroeconomic variables \\
+DIF(7)                    & Diffusion index model with one sparse principle component estimator based on all 105 macroeconomic variables \\
+DIF(8)                    & Diffusion index model with two sparse principle component estimator based on all 105 macroeconomic variables \\
+DIF(9)                    & Diffusion index model with three sparse principle component estimator based on all 105 macroeconomic variables \\
+DIF(1)+FB1(PCA)           & DIF(1) model with one principle component added, principle component analysis based on all 105 macroeconomic variables \\
+DIF(2)+FB1(PCA)           & DIF(2) model with one principle component added, principle component analysis based on all 105 macroeconomic variables \\
+DIF(3)+FB1(PCA)           & DIF(3) model with one principle component added, principle component analysis based on all 105 macroeconomic variables \\
+DIF(1)+FB2(PCA)           & DIF(1) model with two principle components added, principle component analysis based on all 105 macroeconomic variables \\
+DIF(2)+FB2(PCA)           & DIF(2) model with two principle components added, principle component analysis based on all 105 macroeconomic variables \\
+DIF(3)+FB2(PCA)           & DIF(3) model with two principle components added, principle component analysis based on all 105 macroeconomic variables \\
+DIF(1)+FB1(SPCA)          & DIF(1) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DIF(2)+FB1(SPCA)          & DIF(2) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DIF(3)+FB1(SPCA)          & DIF(3) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DIF(1)+FB2(SPCA)          & DIF(1) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DIF(2)+FB2(SPCA)          & DIF(2) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+DIF(3)+FB2(SPCA)          & DIF(3) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}

@@ -8,6 +8,9 @@
 \usepackage{amsmath,amsfonts,amsthm}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{caption} 
+\usepackage{siunitx}
+\usepackage{adjustbox}
 \usepackage{hyperref}
 \usepackage[nameinlink]{cleveref}
 \usepackage{titlesec}
@@ -16,6 +19,8 @@
 \titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
 
 \DeclareMathOperator*{\argmin}{\arg\min}
+
+\captionsetup[table]{skip=10pt}
 
 \graphicspath{figures/}
 
@@ -49,6 +54,9 @@
 \appendix
 \chapter{Model overview}
 \input{appendices/models}
+
+\chapter{Forecasting overview}
+\input{appendices/forecasting}
 
 \printbibliography
 

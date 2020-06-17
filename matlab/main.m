@@ -11,17 +11,17 @@ pcaYields = array2timetable(yieldsNorm*pcaYieldsCoeff, 'RowTimes', yields.date);
 pcaMacro = array2timetable(macroNorm*pcaMacroCoeff, 'RowTimes', macro.date);
 spcaMacro = array2timetable(macroNorm*spcaMacroCoeff, 'RowTimes', macro.date);
 
-sample = timerange('1992-01-01', '1999-12-01', 'months');
+% sample = timerange('1992-01-01', '1999-12-01', 'months');
 % sample = timerange('2000-01-01', '2007-12-01', 'months');
 % sample = timerange('2008-01-01', '2016-12-01', 'months');
-% sample = timerange('1992-01-01', '2016-12-01', 'months');
+sample = timerange('1992-01-01', '2016-12-01', 'months');
 
 cols = [1, 2, 3, 5, 10]; % tau = 1, 2, 3, 5, 10
 y = yields(sample, cols);
 
 nModels = 69;
 forecasts = zeros(size(y, 1), size(y, 2), nModels);
-dm = zeros(nModels - 1, size(y, 2));
+dm = zeros(nModels, size(y, 2));
 
 parfor i=1:size(y,1)
     trainingSample = timerange(datestr(addtodate(datenum(y.date(i)), -120, 'month')), ...
@@ -121,12 +121,13 @@ end
 
 pe = forecasts - y.Variables;
 
-for j=1:size(dm, 1)
+for j=2:size(dm, 1)
     for k=1:size(dm, 2)
-        dm(j, k) = dmtest(pe(:, k, 1), pe(:, k, j + 1));
+        dm(j, k) = dmtest(pe(:, k, 1), pe(:, k, j));
     end
 end
 
+dmbool = (dm > norminv(0.9)) + (dm > norminv(0.95)) + (dm > norminv(0.99));
 spe = pe.^2;
 mspe = squeeze(mean(spe, 1))';
 rmspe = mspe ./ mspe(1, :);

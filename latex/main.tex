@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{caption} 
+\usepackage{threeparttable}
 \usepackage{siunitx}
 \usepackage{adjustbox}
 \usepackage{hyperref}
@@ -19,6 +20,8 @@
 \titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
 
 \DeclareMathOperator*{\argmin}{\arg\min}
+
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
 
 \captionsetup[table]{skip=10pt}
 

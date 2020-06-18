@@ -6,12 +6,11 @@ An overview of the models used is given in~\cref{sec:models}.
 The models are (re-)estimated prior to construction of each forecast, using a rolling window of 120 months.
 Estimation of the models is done using least squares and, where necessary, (sparse) principal component analysis. 
 Monthly yield $h = 1-$step ahead forecasts are constructed for the bond maturities $\tau = 1-$, $2-$, $3-$, $5-$, and $10-$years. 
-Performance of these models is assessed by mean square forecast error (MSFE) and models are compared for predictive accuracy, against the simple AR(1) mode, using~\textcite[hereafter DM]{diebold_comparing_1994}. 
+Performance of these models is assessed by mean square prediction error (MSPE) and models are compared for predictive accuracy, against the benchmark AR(1) mode, using~\textcite[hereafter DM]{diebold_comparing_1994}. 
 
 \section{Model selection}
 For the order selection of the AR and the VAR models, we are making use of the Schwarz information criterion, hereafter SIC, see~\cref{sec:sic}. 
 To compare various models, after forecasting, we are making use of the Mean Square Prediction Error, hereafter MSPE, see~\cref{sec:mspe}.
-In the tables given in
 
 \subsection{Schwarz information criterion (SIC)}
 \label{sec:sic}

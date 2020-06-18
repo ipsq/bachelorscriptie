@@ -1,10 +1,12 @@
-\begin{table}[h]
-\caption{Models used in forecasting}
 \label{tab:model-description}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{ll}
+\begin{footnotesize}
+\begin{tabularx}{\linewidth}{lX}
+\caption{Models used in forecasting} \\
 \toprule
-\multicolumn{1}{c}{Model} & \multicolumn{1}{c}{Description}                                                                                                              \\ \midrule
+\multicolumn{1}{c}{Model} & \multicolumn{1}{c}{Description} \\ \midrule 
+\endhead
+\bottomrule
+\endfoot
 AR(1)                     & Autoregressive model with one lag                                                                                                            \\
 VAR(1)                    & Five-dimensional vector autoregressive model with one lag                                                                                    \\
 VAR(1)+FB1(PCA)           & VAR(1) model with one principle component added, principle component analysis based on all 105 macroeconomic variables                       \\
@@ -73,8 +75,6 @@ DIF(2)+FB1(SPCA)          & DIF(2) model with one sparse principle component add
 DIF(3)+FB1(SPCA)          & DIF(3) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
 DIF(1)+FB2(SPCA)          & DIF(1) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
 DIF(2)+FB2(SPCA)          & DIF(2) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
-DIF(3)+FB2(SPCA)          & DIF(3) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
-\bottomrule
-\end{tabular}%
-}
-\end{table}
+DIF(3)+FB2(SPCA)          & DIF(3) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables
+\end{tabularx}
+\end{footnotesize}

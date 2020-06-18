@@ -1,21 +1,21 @@
-To show the positive impact big data has had on our ability to correctly model the term structure of interest rates, we will be comparing small data models with big data models. 
-The models and predictive accuracy tests will be based on those presented in~\textcite{Swanson2017}. 
-The small data models will include autoregressive, vector autoregressive, and dynamic Nelson-Siegel models. 
-The big data models will include models utilizing diffusion indexes estimated from a macroeconomic dataset. 
+To show the positive impact big data has had on our ability to correctly model the term structure of interest rates, we are comparing small data models with big data models. 
+The models and predictive accuracy tests are based on those presented in~\textcite{swanson_big_2017}. 
+The small data models are autoregressive, vector autoregressive, and dynamic Nelson-Siegel models. 
+The big data models are diffusion index models estimated from a macroeconomic dataset, using dimension reduction techniques described in~\cref{sec:dimension-reduction}. 
 An overview of the models used is given in~\cref{sec:models}.
-The models will be (re-)estimated prior to construction of each forecast, using a rolling window of 120 months. 
-The use of rolling windows is explained in~\cref{sec:dmtest}. 
+The models are (re-)estimated prior to construction of each forecast, using a rolling window of 120 months.
 Estimation of the models is done using least squares and, where necessary, (sparse) principal component analysis. 
 Monthly yield $h = 1-$step ahead forecasts are constructed for the bond maturities $\tau = 1-$, $2-$, $3-$, $5-$, and $10-$years. 
-Performance of these models shall be assessed by mean square forecast error (MSFE) and models shall be compared for predictive accuracy using~\textcite[hereafter DM]{Diebold1994}. 
+Performance of these models is assessed by mean square forecast error (MSFE) and models are compared for predictive accuracy, against the simple AR(1) mode, using~\textcite[hereafter DM]{diebold_comparing_1994}. 
 
 \section{Model selection}
 For the order selection of the AR and the VAR models, we are making use of the Schwarz information criterion, hereafter SIC, see~\cref{sec:sic}. 
 To compare various models, after forecasting, we are making use of the Mean Square Prediction Error, hereafter MSPE, see~\cref{sec:mspe}.
+In the tables given in
 
 \subsection{Schwarz information criterion (SIC)}
 \label{sec:sic}
-The Schwarz information criterion, also commonly referred to as the Bayesian information criterion, published by~\textcite[hereafter SIC]{Schwarz1978} is a model selection criterium, closely related to the Akaike information criterion~\parencite{Akaike1974}. 
+The Schwarz information criterion, also commonly referred to as the Bayesian information criterion, published by~\textcite[hereafter SIC]{schwarz_estimating_1978} is a model selection criterium, closely related to the Akaike information criterion~\parencite{akaike_new_1974}. 
 It is defined as follows:
 \begin{equation}
 	SIC = k\ln{n} - 2\ln{\hat{L}},
@@ -75,24 +75,24 @@ From this, we can conclude that singular values are related to eigenvalues in th
 \subsection{Sparse Principal Component Analysis (SPCA)}
 \label{sec:spca}
 Before we get to the definition of sparse principal component analysis, we first have to look at some regression regularization techniques. 
-\textcite{Tikhonov978} introduced the ridge regression.
+\textcite{bell_solutions_1978} introduced the ridge regression.
 The ridge regression is a regularization method to mitigate the problem of multicollinearity in linear regression.
 It imposes a penalty on the squared value of the regression coefficients, effectively shrinking them towards zero.
 \begin{equation}
 	\beta_{ridge} = \argmin_{\beta} \left\{ { \left\lVert Y - \sum_{j=1}^p X_j \beta_j \right\rVert }^2 + \lambda \sum_{j=1}^p \beta_j^2 \right\} 
 \end{equation}
-\textcite{Tibshirani1996} later introduced the \textit{least absolute shrinkage and selection operator} (lasso) regression. 
+\textcite{tibshirani_regression_1996} later introduced the \textit{least absolute shrinkage and selection operator} (lasso) regression. 
 This method imposes a penalty on the absolute value of the regression coefficients, effectively eliminating some coefficients from the model.
 \begin{equation}
 	\beta_{lasso} = \argmin_{\beta} \left\{ { \left\lVert Y - \sum_{j=1}^p X_j \beta_j \right\rVert }^2 + \lambda \sum_{j=1}^p |\beta_j| \right\} 
 \end{equation}
-Combining these two regularization methods resulted in what is now known as the elastic net, see~\textcite{Zou2005}.
+Combining these two regularization methods resulted in what is now known as the elastic net, see~\textcite{zou_regularization_2005}.
 \begin{equation}
 	\beta_{elastic\ net} = (1 + \lambda_2) \argmin_{\beta} \left\{ { \left\lVert Y - \sum_{j=1}^p X_j \beta_j \right\rVert }^2 + \lambda_2 \sum_{j=1}^p \beta_j^2 + \lambda_1 \sum_{j=1}^p |\beta_j|  \right\} 
 \end{equation}
 Factors estimated with Principal Component Analysis create linear combinations of the underlying predictor variables with all non-zero factor loadings. 
 This negatively affects the parsimony of forecasting models and makes interpreting the factor loadings difficult. 
-To overcome this, \textcite{Zou2006} introduced a method of finding principal components with sparse factor loadings by formulating PCA as a regression problem and applying the elastic net. 
+To overcome this, \textcite{zou_sparse_2006} introduced a method of finding principal components with sparse factor loadings by formulating PCA as a regression problem and applying the elastic net. 
 \begin{equation}
 \begin{aligned}
 	\left(\mathbf{\widehat{A}},\mathbf{\widehat{B}}\right) = \argmin_{\mathbf{A},\mathbf{B}}\ &\sum_{i=1}^n { \left\lVert \mathbf{x}_i - \mathbf{A}\mathbf{B}^T\mathbf{x}_i \right\rVert }^2 + \lambda_2 \sum_{j=1}^k {\lVert \beta_j \rVert}^2 + \sum_{j=1}^k \lambda_{1,j} {\lVert \beta_j \rVert}_1 \\
@@ -103,6 +103,7 @@ One can obtain the factors as columns, after normalization, of the matrix $\math
 
 \section{Models}
 \label{sec:models}
+For an exact overview over the models used, see~\cref{tab:model-description}.
 \subsection{Autoregressive (AR) and Vector-Autoregressive (VAR) Models}
 \label{sec:arvar}
 These AR($p$) and VAR($p$) models are formulated as follows:
@@ -118,22 +119,22 @@ The number of lags shall be selected using the Schwarz information criterion (SI
 
 \subsection{Dynamic Nelson-Siegel (DNS) Models}
 \label{sec:dns}
-The Nelson-Siegel model, published by~\textcite{Nelson1987}, models the cross-sectional movement of the term structure using three underlying latent factors interpreted as \enquote{level}, \enquote{slope}, and \enquote{curvature}. 
+The Nelson-Siegel model, published by~\textcite{nelson_parsimonious_1987}, models the cross-sectional movement of the term structure using three underlying latent factors interpreted as \enquote{level}, \enquote{slope}, and \enquote{curvature}. 
 These factors are commonly known as the \enquote{Nelson-Siegel factors}. 
-The dynamic version of the Nelson-Siegel model was published by~\textcite[hereafter DNS]{Diebold2006}. 
+The dynamic version of the Nelson-Siegel model was published by~\textcite[hereafter DNS]{diebold_forecasting_2006}. 
 The DNS model is formulated as follows:
 \begin{equation}
 	\hat{y}_{t+1}(\tau) = \hat{\beta}_{1,t+1}^{f} + \hat{\beta}_{2,t+1}^{f} \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau}\right] + \hat{\beta}_{3,t+1}^{f} \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau} - \exp(-\lambda_t \tau)\right].
 \end{equation}
-To estimate the DNS model, we make use of the two-step formulation, presented by~\textcite{Diebold2006}. 
-The first step is obtaining the parameters $\hat{\beta}_{1,t}^f, \hat{\beta}_{2,t}^f, \hat{\beta}_{3,t}^f$ by regressing $\left\{1, \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau}\right], \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau} - \exp(-\lambda_t \tau)\right] \right\}$ on $\mathbf{y}_t^f(\tau)$.
+To estimate the DNS model, we make use of the two-step formulation, presented by~\textcite{diebold_forecasting_2006}. 
+The first step is obtaining the parameters $\hat{\beta}_{1,t}^f, \hat{\beta}_{2,t}^f, \hat{\beta}_{3,t}^f$ by regressing $$\left\{1, \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau}\right], \left[\frac{1-\exp(-\lambda_t \tau)}{\lambda_t \tau} - \exp(-\lambda_t \tau)\right] \right\}$$ on $\mathbf{y}_t^f(\tau)$.
 We consider 3 variants of $\mathbf{y}_t^f(\tau)$ in this paper, namely:
 \begin{align*}
 	\mathbf{y}_t^{10}(\tau) &= \left[y_t(12)~y_t(24)~y_t(36)~y_t(48)~y_t(60)~y_t(72)~y_t(84)~y_t(96)~y_t(108)~y_t(120) \right]', \\
 	\mathbf{y}_t^6(\tau) &= \left[y_t(12)~y_t(24)~y_t(36)~y_t(60)~y_t(84)~y_t(120) \right]', \\
 	\mathbf{y}_t^4(\tau) &= \left[y_t(12)~y_t(36)~y_t(60)~y_t(120) \right]'.
 \end{align*}
-\textcite{Diebold2006} fix $\lambda_t$ to $0.0609$.
+\textcite{diebold_forecasting_2006} fix $\lambda_t$ to $0.0609$.
 This maximizes the loading on the curvature factor at a 30 month maturity. 
 The second step is estimating $\hat{\beta}_{1,t+1}^{f}$, $\hat{\beta}_{2,t+1}^{f}$, and $\hat{\beta}_{3,t+1}^{f}$.
 We estimate these parameters using both an AR(1) and a VAR(1) model. 
@@ -182,7 +183,7 @@ All other terms are conformably defined, see~\cref{sec:dns}.
 
 \subsection{Diffusion Index Models}
 \label{sec:dif}
-Diffusion Index Models, also commonly referred to as \enquote{factor augmented forecast models}, as published by~\textcite[hereafter DIF]{Stock2002a,Stock2002b}, is an extension to regular forecast models, mostly (vector-)autoregressive models, supplemented by a vector of latent factors. 
+Diffusion Index Models, also commonly referred to as \enquote{factor augmented forecast models}, as published by~\textcite[hereafter DIF]{stock_macroeconomic_2002,stock_forecasting_2002}, is an extension to regular forecast models, mostly (vector-)autoregressive models, supplemented by a vector of latent factors. 
 This model is formulated as follows:
 \begin{equation}
 	\hat{y}_{t+1}(\tau) = c + \beta' W_t + \xi' F_t^b + \eta' F_t^s,
@@ -192,7 +193,7 @@ where $F_t^b$ contains either 1, 2, or 3 latent factors, estimated from the set 
 \section{Predictive accuracy testing}
 \subsection{Diebold-Mariano (DM) Test}
 \label{sec:dmtest}
-The Diebold-Mariano Test, published by~\textcite[hereafter DM]{Diebold1994}, is a predictive accuracy test between two models. 
+The Diebold-Mariano Test, published by~\textcite[hereafter DM]{diebold_comparing_1994}, is a predictive accuracy test between two models. 
 The hypotheses are defined as follows:
 \begin{align*}
 	H_0 : E\left[L(u_{0,t+h}) - L(u_{1,t+h})\right] = 0, \\

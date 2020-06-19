@@ -1,1 +1,49 @@
 \Cref{tab:forecasts-sample-1,tab:forecasts-sample-2,tab:forecasts-sample-3,tab:forecasts-sample-4} contain relative MSPEs for yield forecasts constructed using the models listed in \cref{tab:model-description}, for $h = 1$, for $\tau = 1, 2, 3, 5, 10$ year maturities, and for 4 different forecasting samples, listed in \cref{sec:samples}. 
+We used the simple AR(1) model as the benchmark for the relative MSPEs. Bold printed entries denote the lowest (relative) MSPEs, for each maturity. 
+Superscripted entries indicate a rejection of the DM test, with \sym{*}, \sym{**}, and \sym{***} corresponding to significance levels $0.10$, $0.05$, and $0.01$ respectively, indicating a difference in forecasting power compared to the benchmark model. 
+
+Analyzing our results in \cref{tab:forecasts-sample-1,tab:forecasts-sample-2,tab:forecasts-sample-3,tab:forecasts-sample-4}, some observations can be made. 
+When comparing our results to those of \textcite{swanson_big_2017}, some similarities exist but the order of magnitude of our results differ greatly to those of \citeauthor{swanson_big_2017}. 
+Especially in subsample 1 and the full sample, do our models almost never beat the simple benchmark model, contrary to the results of \citeauthor{swanson_big_2017}, where the factor augmented DNS models perform best for the lower maturities ($\tau = 1, 2, 3$).
+
+The reason for these large deviations in results could have a couple reasons. All our models were implemented using maximum likelihood estimation (MLE). 
+MLE problems are most commonly solved using line search algorithms which do not provide a deterministic result. 
+We also used a slightly different sample from the ones used by \citeauthor{swanson_big_2017}. 
+We extended subsample 1 and the full sample to include 3 more months of post-recession data and extended subsample 3 and the full sample to include additional data points \citeauthor{swanson_big_2017} did not have access to yet, at the time. 
+Subsample 2 remains unchanged.
+
+\paragraph{Subsample 1}
+Looking only at our results for subsample 1 in~\cref{tab:forecasts-sample-1}, we can make the following observations. 
+The AR(SIC) model \enquote{wins} for all maturities except $\tau = 5$. 
+This maturity seems to be best represented by the benchmark AR(1) model.
+The AR(SIC) is the only model to out perform the benchmark model twice, based on the DM-test with $0.05$ significance. 
+It appears that this period, when the economy was first recovering but later on booming, is a hard one for our models to predict. 
+Looking at the other models, only the standard DNS models, without factor augmentation, regressed on 10 different maturity yields, performed reasonably well coming in second for the 1 year maturity. 
+For the 2 year maturity, the second best performing model is the diffusion index model with two SPCA factors. 
+This model appears to be performing consistently for the early maturities, after which it fails to predict the farther out maturities. 
+For the 3, 5, and 10 year maturities, the DNS models without factors augmentation are all the second best performing models. 
+Comparing the DNS models with AR formulations against those with VAR formulations, we can see that the AR formulations consistently out perform the VAR formulations. 
+After performing a DM test between these models, we cannot reject the null hypothesis of equal predictive accuracy. 
+
+\paragraph{Subsample 2}
+Looking at our results from subsample 2 in~\cref{tab:forecasts-sample-2}, we immediately observe that the benchmark model is no longer the best in class. 
+For the 1 year maturity, it is the DNS model with VAR formulation, augmented with three macroeconomic variables, that performs best. 
+We also observe that the diffusion index models and their simpler VAR counterparts performing reasonably well for this maturity. 
+Unfortunately, not a single model beat the benchmark model according to the DM test. 
+
+
+
+\paragraph{Subsample 3}
+
+
+\paragraph{Full sample}
+
+
+\paragraph{DNS models}
+
+
+\paragraph{DIF models}
+
+
+\paragraph{PCA versus SPCA}
+

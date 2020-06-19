@@ -102,7 +102,7 @@ One can obtain the factors as columns, after normalization, of the matrix $\math
 
 \section{Models}
 \label{sec:models}
-For an exact overview over the models used, see~\cref{tab:model-description}.
+For a summary of the models used, see~\cref{tab:model-description}. The details of each model is given below.
 \subsection{Autoregressive (AR) and Vector-Autoregressive (VAR) Models}
 \label{sec:arvar}
 These AR($p$) and VAR($p$) models are formulated as follows:
@@ -182,10 +182,10 @@ All other terms are conformably defined, see~\cref{sec:dns}.
 
 \subsection{Diffusion Index Models}
 \label{sec:dif}
-Diffusion Index Models, also commonly referred to as \enquote{factor augmented forecast models}, as published by~\textcite[hereafter DIF]{stock_macroeconomic_2002,stock_forecasting_2002}, is an extension to regular forecast models, mostly (vector-)autoregressive models, supplemented by a vector of latent factors. 
+Diffusion Index Models, also commonly referred to as \enquote{factor augmented forecast models}, as published by~\textcite[hereafter DIF]{stock_macroeconomic_2002,stock_forecasting_2002}, is a model based on a vector of latent factors. 
 This model is formulated as follows:
 \begin{equation}
-	\hat{y}_{t+1}(\tau) = c + \beta' W_t + \xi' F_t^b + \eta' F_t^s,
+	\hat{y}_{t+1}(\tau) = c + \xi' F_t^b + \eta' F_t^s,
 \end{equation}
 where $F_t^b$ contains either 1, 2, or 3 latent factors, estimated from the set of macroeconomic variables, using either PCA or SPCA (see~\cref{sec:spca}), $F_t^s$ contains either 1, 2, or 3 latent factors, estimated with PCA, from a set of 10 yields given by $\mathbf{y}_t^{10}(\tau)$, see~\cref{sec:dns}, and $\xi$ and $\eta$ are conformably sized (depending on the amount of factors included) vectors of coefficients. 
 

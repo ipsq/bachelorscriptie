@@ -11,6 +11,7 @@
 \usepackage{tabularx}
 \usepackage{ltablex}
 \usepackage{caption}
+\usepackage{subcaption}
 \usepackage{siunitx}
 \usepackage{adjustbox}
 \usepackage{hyperref}
@@ -18,6 +19,7 @@
 \usepackage{titlesec}
 \usepackage{etoolbox}
 \usepackage{enumitem}
+\usepackage{float}
 
 \titleformat{\chapter}[hang]
   {\normalfont\huge\bfseries}{\thechapter.}{20pt}{\Huge}
@@ -72,6 +74,10 @@
 \chapter{Forecasting overview}
 \label{chap:forecasting-overview}
 \input{appendices/forecasting}
+
+\chapter{DM-tests overview}
+\label{chap:dmtest-overview}
+\input{appendices/dmtests}
 
 \printbibliography
 

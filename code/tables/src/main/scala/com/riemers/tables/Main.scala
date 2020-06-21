@@ -3,7 +3,7 @@ package com.riemers.tables
 object Main {
 
   val header: String =
-    """\begin{table}[h]
+    """\begin{table}[H]
       |\centering
       |\sisetup{
       |round-mode=places,

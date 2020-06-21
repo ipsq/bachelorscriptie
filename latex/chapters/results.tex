@@ -1,5 +1,6 @@
 \Cref{tab:forecasts-sample-1,tab:forecasts-sample-2,tab:forecasts-sample-3,tab:forecasts-sample-4} contain relative MSPEs for yield forecasts constructed using the models listed in \cref{tab:model-description}, for $h = 1$, for $\tau = 1, 2, 3, 5, 10$ year maturities, and for 4 different forecasting samples, listed in \cref{sec:samples}. 
-We used the simple AR(1) model as the benchmark for the relative MSPEs. Bold printed entries denote the lowest (relative) MSPEs, for each maturity. 
+We used the simple AR(1) model as the benchmark for the relative MSPEs. 
+Bold printed entries denote the lowest (relative) MSPEs, for each maturity. 
 Superscripted entries indicate a rejection of the DM test, with \sym{*}, \sym{**}, and \sym{***} corresponding to significance levels $0.10$, $0.05$, and $0.01$ respectively, indicating a difference in forecasting power compared to the benchmark model. 
 
 Analyzing our results in \cref{tab:forecasts-sample-1,tab:forecasts-sample-2,tab:forecasts-sample-3,tab:forecasts-sample-4}, some observations can be made. 
@@ -12,7 +13,7 @@ We also used a slightly different sample from the ones used by \citeauthor{swans
 We extended subsample 1 and the full sample to include 3 more months of post-recession data and extended subsample 3 and the full sample to include additional data points \citeauthor{swanson_big_2017} did not have access to yet, at the time. 
 Subsample 2 remains unchanged.
 
-\paragraph{Subsample 1}
+\section{Subsample 1}
 Looking only at our results for subsample 1 in~\cref{tab:forecasts-sample-1}, we can make the following observations. 
 The AR(SIC) model \enquote{wins} for all maturities except $\tau = 5$. 
 This maturity seems to be best represented by the benchmark AR(1) model.
@@ -25,25 +26,59 @@ For the 3, 5, and 10 year maturities, the DNS models without factors augmentatio
 Comparing the DNS models with AR formulations against those with VAR formulations, we can see that the AR formulations consistently out perform the VAR formulations. 
 After performing a DM test between these models, we cannot reject the null hypothesis of equal predictive accuracy. 
 
-\paragraph{Subsample 2}
+\section{Subsample 2}
 Looking at our results from subsample 2 in~\cref{tab:forecasts-sample-2}, we immediately observe that the benchmark model is no longer the best in class. 
 For the 1 year maturity, it is the DNS model with VAR formulation, augmented with three macroeconomic variables, that performs best. 
-We also observe that the diffusion index models and their simpler VAR counterparts performing reasonably well for this maturity. 
-Unfortunately, not a single model beat the benchmark model according to the DM test. 
+We also observe that the diffusion index models are performing reasonably well for this maturity. 
+Unfortunately, for this maturity, not a single model beat the benchmark model according to the DM test. 
+The 2 year maturity is best represented by a diffusion index model augmented with 3 sparse principal components. 
+The DNS models with VAR formulation and macroeconomic variables also performs better than the benchmark, based on raw MSPE.
+For this maturity, all models beating the benchmark on raw MSPE are either augmented with sparse principal components or the three macroeconomic variables.
+For the maturities 3, 5, and 10 years, the \enquote{best} models are all DNS models augmented with sparse principal components. 
+For the 5 year maturity, 11 DNS models augmented with (sparse) principal components, reject the null hypothesis of equal predictive accuracy, compared with the benchmark model. 
 
+\section{Subsample 3}
+Looking at our results from subsample 3 in~\cref{tab:forecasts-sample-3}, the results are disappointing. 
+For the maturities 1, 2, 3, and 5 years, no model manages to \enquote{beat} the benchmark model on raw MSPE. 
+Only the AR model with lags based on the Schwarz Information Criterion manages to beat its one lagged counter part for the 1 year maturity. 
+With all the other, more complicated, models not even close to its raw MSPE. 
+Only for the 10 year maturity, do we see that the DNS models start to outperform the benchmark model on raw MSPE, with the DNS model with AR formulation and 1 principal component having the lowest MSPE.
+No model rejects the null hypothesis of equal predictive accuracy for any maturity. 
 
+\section{Full sample}
+Looking at our results from the full sample in~\cref{tab:forecasts-sample-4}, the results are very similar to those of subsample 3. 
+Again for the maturities 1, 2, 3, and 5 years, the AR models perform best based on raw MSPE. 
+With the AR model with lags based on the Schwarz Information Criterion again being the best performing model for the 1 year maturity, based on raw MSPE.
+It is also the only model for this sample which rejects the null hypothesis for equal predictive accuracy, with a significance of $0.10$. 
+Looking at the 10 year maturity, the results are again very similar to those of subsample 3, with a small amount of DNS models beating the benchmark based on raw MSPE.
+From these models, the DNS model with AR formulation and 1 principal component again having the lowest MSPE. 
 
-\paragraph{Subsample 3}
+\section{DNS models}
+Looking at our results from~\cref{tab:dns-sample-1,tab:dns-sample-2,tab:dns-sample-3,tab:dns-sample-4}, we can make the following observations. 
+With an $\alpha = 0.05$, we cannot say one formulation performs better than the other, based on subsample 1, see~\cref{tab:dns-sample-1}. 
+The story is different with subsample 2, see~\cref{tab:dns-sample-1}. 
+Here we can see that for the 1 year maturity, the VAR formulation is often better than the AR formulation.
+The story changes however, when looking at the later maturities, especially the 10 year maturity.
+Now the tables have turned and the AR formulation is consistently better.
+For subsample 3, see~\cref{tab:dns-sample-3}, the story is even more polarized than for subsample 2. 
+The 1 year maturity is consistently dominated by the VAR formulation, whilst the 10 year maturity is better forecasted by the AR formulation. 
+The full sample, see~\cref{tab:dns-sample-4}, has much of the same interpretation as subsample 3, with the 1 year maturity being dominated by the VAR formulation and the other maturities better represented by the AR formulation.
 
+\section{DIF models}
+Looking at our results from~\cref{tab:dif-sample-1,tab:dif-sample-2,tab:dif-sample-3,tab:dif-sample-4}, we can make the following observations. 
+Again, just like the results form subsample 1 for the DNS models, with an $\alpha = 0.05$, we cannot say one formulation performs better than the other, based on subsample 1, see~\cref{tab:dif-sample-1}. 
+The same is true for subsample 2, where again, all values are around $0.5$, indicating equal predictive performance, see~\cref{tab:dif-sample-2}.
+For subsample 3, there are some factor augmented models that perform worse than their non factor augmented counterpart, in the 1 year maturity, see~\cref{tab:dif-sample-3}. 
+For the full sample, see~\cref{tab:dif-sample-4}, the story is again the same as for subsample 3.
+Some non factor augmented models perform better than their factor augmented counterpart. 
+Still, we cannot reject the null hypothesis for a large part of the models.
 
-\paragraph{Full sample}
-
-
-\paragraph{DNS models}
-
-
-\paragraph{DIF models}
-
-
-\paragraph{PCA versus SPCA}
-
+\section{PCA versus SPCA}
+Looking at our results from~\cref{tab:spca-sample-1,tab:spca-sample-2,tab:spca-sample-3,tab:spca-sample-4}, we can make the following observations. 
+For subsample 1, see~\cref{tab:spca-sample-1}, SPCA is out performing PCA a large number of times, for the 1, 2, 3, and 5 year maturities.
+For the 10 year maturity, the results are about even.
+For subsample 2, see~\cref{tab:spca-sample-2}, the result is even more polarized than for subsample 1, with SPCA outperforming PCA also in the 10 year maturities.
+For subsample 3, see~\cref{tab:spca-sample-3}, the results are not as clear cut as before.
+We see instances of SPCA grossly outperforming PCA and vice versa. 
+For the maturities 2, 3, and 5 years, we observe that PCA greatly outperforms SPCA. 
+Looking at the full sample, see~\cref{tab:spca-sample-4}, we see again that SPCA is flagrantly outperforming PCA, except some instances in the 5 year maturity. 

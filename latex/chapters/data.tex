@@ -2,7 +2,7 @@
 For our yield data, we make use of the dataset published by~\textcite{gurkaynak_us_2007}. 
 This dataset consists of United States Department of Treasury zero-coupon, continuously compounded, yield curve data. 
 The dataset contains daily yield curve data from the 14th of June 1961 to the 1st of May 2020, at the time of writing. 
-This dataset contains maturities from 1 year up to and including 30 years. 
+This dataset contains maturities from 1 year up to 30 years. 
 For our research only the maturities from 1 year up to and including 10 years are used. 
 Because yield curve estimates only extended out to 7 years until the 16th of August 1971~\parencite[see][p.~19]{gurkaynak_us_2007}, our sample will start from August 1971 to December 2016. 
 
@@ -16,39 +16,40 @@ We make use of the same sample as the yield data.
 \label{sec:samples}
 For our research, we use the following samples to compare our various different models:
 \begin{enumerate}
-	\item Subsample 1, January 1992 to December 1999, this is our pre-dot-com bubble crash sample,
-	\item Subsample 2, January 2000 to December 2007, this is our dot-com bubble crash and 9/11 sample leading up to the great recession,
-	\item Subsample 3, January 2008 to December 2016, this is our (post-)great recession sample,
-	\item Full sample, January 1992 to December 2016.
+	\item Full sample, January 1992 to December 2016,
+	\item Subsample 1, January 1992 to December 1999, this is our pre-dot-com bubble crash sample;
+	\item Subsample 2, January 2000 to December 2007, this is our dot-com bubble crash and 9/11 sample leading up to the great recession;
+	\item Subsample 3, January 2008 to December 2016, this is our (post-)great recession sample.
 \end{enumerate}
-These samples roughly correspond to the samples used by~\textcite{swanson_big_2017}. Surface plots of these samples are given in~\cref{fig:samples}. 
+These samples roughly correspond to the samples used by~\textcite{swanson_big_2017}. 
+Surface plots of these samples are shown in~\cref{fig:samples}. 
 
 \begin{figure}
      \centering
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
+         \includegraphics[width=\textwidth]{figures/fullsample}
+         \caption{Full sample, January 1992 to December 2016, 300 observations}
+         \label{fig:fullsample}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
          \includegraphics[width=\textwidth]{figures/sample1}
-         \caption{Subsample 1}
+         \caption{Subsample 1, January 1992 to December 1999, 96 observations}
          \label{fig:subsample1}
      \end{subfigure}
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
          \includegraphics[width=\textwidth]{figures/sample2}
-         \caption{Subsample 2}
+         \caption{Subsample 2, January 2000 to December 2007, 96 observations}
          \label{fig:subsample2}
      \end{subfigure}
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
          \includegraphics[width=\textwidth]{figures/sample3}
-         \caption{Subsample 3}
+         \caption{Subsample 3, January 2008 to December 2016, 108 observations}
          \label{fig:subsample3}
      \end{subfigure}
-     \begin{subfigure}[b]{0.45\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{figures/fullsample}
-         \caption{Full sample}
-         \label{fig:fullsample}
-     \end{subfigure}
-     \caption{Surface plots of the 4 different samples}
+     \caption{Surface plots of the yields for the 4 different samples}
      \label{fig:samples}
 \end{figure}

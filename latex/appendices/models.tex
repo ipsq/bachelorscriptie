@@ -3,7 +3,8 @@
 \begin{tabularx}{\linewidth}{lX}
 \caption{Models used in forecasting} \\
 \toprule
-\multicolumn{1}{c}{Model} & \multicolumn{1}{c}{Description} \\ \midrule 
+\multicolumn{2}{l}{\textbf{Panel A: Autoregressive (AR) and Vector-Autoregressive (VAR) Models}} \\
+\multicolumn{1}{l}{\textbf{Model}} & \multicolumn{1}{l}{\textbf{Description}} \\ \midrule
 \endhead
 \bottomrule
 \endfoot
@@ -18,7 +19,15 @@ VAR(SIC)                  & Five-dimensional vector autoregressive model with la
 VAR(SIC)+FB1(PCA)         & VAR(SIC) model with one principle component added, principle component analysis based on all 105 macroeconomic variables                     \\
 VAR(SIC)+FB2(PCA)         & VAR(SIC) model with two principle components added, principle component analysis based on all 105 macroeconomic variables                    \\
 VAR(SIC)+FB1(SPCA)        & VAR(SIC) model with one sparse principle component added, sparse principle component analysis based on all 105 macroeconomic variables \\
-VAR(SIC)+FB2(SPCA)        & VAR(SIC) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables \\
+VAR(SIC)+FB2(SPCA)        & VAR(SIC) model with two sparse principle components added, sparse principle component analysis based on all 105 macroeconomic variables 
+\end{tabularx}
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\multicolumn{2}{l}{\textbf{Panel B: Dynamic Nelson-Siegel (DNS) Models}} \\
+\multicolumn{1}{l}{\textbf{Model}} & \multicolumn{1}{l}{\textbf{Description}} \\ \midrule
+\endhead
+\bottomrule
+\endfoot
 DNS(1)                    & Dynamic Nelson-Siegel (DNS) model with underlying AR(1) factor specifications fitted with ten-dimensional yields: maturity $\tau = 12, 24, 36, 48, 60, 72, 84, 96, 108, 120$\ months \\
 DNS(2)                    & DNS model with underlying AR(1) factor specifications fitted with six-dimensional yields: maturity $\tau = 12, 24, 36, 60, 84, 120$\ months  \\
 DNS(3)                    & DNS model with underlying AR(1) factor specifications fitted with four-dimensional yields: maturity $\tau = 12, 36, 60, 120$\ months         \\
@@ -54,7 +63,15 @@ DNS(2)+MAC                & DNS(2) model with three key macroeconomic variables 
 DNS(3)+MAC                & DNS(3) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation \\
 DNS(4)+MAC                & DNS(4) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation \\
 DNS(5)+MAC                & DNS(5) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation \\
-DNS(6)+MAC                & DNS(6) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation \\
+DNS(6)+MAC                & DNS(6) model with three key macroeconomic variables added: manufacturing capacity utilization, the federal funds rate, and annual price inflation
+\end{tabularx}
+\begin{tabularx}{\linewidth}{lX}
+\toprule
+\multicolumn{2}{l}{\textbf{Panel C: Diffusion Index Models}} \\
+\multicolumn{1}{l}{\textbf{Model}} & \multicolumn{1}{l}{\textbf{Description}} \\ \midrule
+\endhead
+\bottomrule
+\endfoot
 DIF(1)                    & Diffusion index model with one principle component estimator based on all ten-dimensional yields \\
 DIF(2)                    & Diffusion index model with two principle component estimator based on all ten-dimensional yields \\
 DIF(3)                    & Diffusion index model with three principle component estimator based on all ten-dimensional yields \\

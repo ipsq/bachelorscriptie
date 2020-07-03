@@ -10,59 +10,30 @@ Monthly yield $h = 1-$step ahead forecasts are constructed for the bond maturiti
 Performance of these models is assessed by mean square prediction error (MSPE) and models are compared for predictive accuracy, against the benchmark AR(1) model, using~\textcite[hereafter DM]{diebold_comparing_1994}. 
 We are also comparing the predictive accuracy of various variations of DNS models, Diffusion Index models, and we are comparing PCA augmented models to SPCA augmented models, using the DM test. 
 
-\section{Model selection}
-For the order selection of the AR and the VAR models, we are making use of the Schwarz information criterion, hereafter SIC, see~\cref{sec:sic}. 
-To compare various models, after forecasting, we are making use of the Mean Square Prediction Error, hereafter MSPE, see~\cref{sec:mspe}.
-
-\subsection{Schwarz information criterion (SIC)}
-\label{sec:sic}
-The Schwarz information criterion, also commonly referred to as the Bayesian information criterion, published by~\textcite[hereafter SIC]{schwarz_estimating_1978} is a model selection criterium, closely related to the Akaike information criterion~\parencite{akaike_new_1974}. 
-It is defined as follows:
-\begin{equation}
-	SIC = k\ln{n} - 2\ln{\hat{L}},
-\end{equation}
-where $\hat{L}$ is the likelihood of the model, $n$ the number of observations and $k$ the number of model parameters estimated. The difference between SIC and AIC is the higher penalty given for the addition of extra parameters to compensate for the increase in likelihood.
-
-\subsection{Mean Squared Prediction Error (MSPE)}
-\label{sec:mspe}
-The Mean Square Prediction Error is a metric for comparing various models in forecasting.
-It is defined as follows:
-\begin{equation}
-	MSPE = \frac{1}{q} \sum_{i=n+1}^{n+q} \left(Y_i - \hat{Y}_i \right)^2,
-\end{equation}
-where $n$ is the training sample and $q$ is the forecasting sample.
-
 \section{Dimension reduction}
 \label{sec:dimension-reduction}
 \subsection{Principal Component Analysis (PCA)}
 Principal Component Analysis is a method of finding an orthogonal basis for your data in which different dimensions are uncorrelated. 
 The vectors spanning this orthogonal basis are sorted beginning with the most variance explained to least variance explained. 
 This method is often used as a dimension reduction technique by only including the first $k$ factors to explain the data, whilst keeping most variance of the original dataset. 
-The PCA coefficients are most often computed in one of two ways:
-\begin{enumerate}
-	\item eigenvalue decomposition on the correlation matrix
-	\item singular value decomposition
-\end{enumerate}
-These two methods, and how they relate to each other, is described below. 
-The relation between these two methods is important for the formulation of the Sparse Principal Component Analysis in~\cref{sec:spca}.
+The PCA coefficients are most often computed in one of two ways: eigenvalue decomposition on the correlation matrix, or singular value decomposition.
+In this paper, we only focus on singular value decomposition.
 Both methods result in the same set of principal components but the eigenvalue decomposition method is more restricted than the singular value decomposition. 
 This is (part of) the reason why singular value decomposition is used for the sparse principal component analysis formulation.
 
-\paragraph{Eigenvalue decomposition on the correlation matrix}
 Let $\mathbf{X} = \begin{pmatrix}X_1 X_2 \cdots X_p \end{pmatrix}$ be our data matrix of size $n \times p$, where $n$ is the number of observations and $p$ the number of variables. Construct matrix $\mathbf{D}$ by centering and normalizing the matrix $\mathbf{X}$:
 \begin{equation}
 	\mathbf{D} = \begin{pmatrix}
 			\frac{X_1 - \bar{X}_1}{\lVert X_1 \rVert} \frac{X_2 - \bar{X}_2}{\lVert X_2 \rVert} \cdots \frac{X_p - \bar{X}_p}{\lVert X_p \rVert} 
 		\end{pmatrix}.
 \end{equation}
-Construct the $p \times p$ correlation matrix $\mathbf{C} = \mathbf{D}^T\mathbf{D} / (n - 1)$. Since $\mathbf{C}$ is a symmetric matrix, it can be diagonalized $\mathbf{C} = \mathbf{V}\mathbf{L}\mathbf{V}^T$, where $\mathbf{V}$ is our matrix of eigenvectors and $\mathbf{L}$ is a diagonal matrix of eigenvalues. The eigenvectors are, in principal component analysis, referred to as \enquote{principal axes}. Principal components can be constructed by projecting the data on these principal axes $\mathbf{D}\mathbf{V}$.
-
-\paragraph{Singular value decomposition (SVD)}
+Construct the $p \times p$ correlation matrix $\mathbf{C} = \mathbf{D}^T\mathbf{D} / (n - 1)$. 
 Performing the singular value decomposition on the matrix $\mathbf{C}$ results in:
 \begin{equation}
 	\mathbf{D} = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^T,
 \end{equation}
-where $\mathbf{U}$ is a unitary matrix and $\mathbf{\Sigma}$ is a diagonal matrix of singular values $s_i$. The relationship between the singular values and the eigenvalues of the correlation matrix is the following:
+where $\mathbf{U}$ is a unitary matrix, $\mathbf{\Sigma}$ is a diagonal matrix of singular values $s_i$, and $\mathbf{V}$ is a matrix of eigenvectors. 
+The relationship between the singular values and the eigenvalues of the correlation matrix is the following:
 \begin{equation}
 \begin{aligned}
 	\mathbf{C} &= \mathbf{D}^T\mathbf{D} / (n - 1) \\
@@ -104,9 +75,13 @@ One can obtain the factors as columns, after normalization, of the matrix $\math
 
 \section{Models}
 \label{sec:models}
-For a summary of the models used, see~\cref{tab:model-description}. The details of each model is given below.
+For a summary of the models used, see~\cref{tab:model-description}. 
+The details of each model is given below.
+Each section contains a short list of the corresponding models from~\cref{tab:model-description}.
 \subsection{Autoregressive (AR) and Vector-Autoregressive (VAR) Models}
 \label{sec:arvar}
+\textit{Models in this section are summarized by: AR(1), VAR(1), VAR(1)+FB1(PCA), VAR(1)+FB2(PCA), VAR(1)+FB1(SPCA), VAR(1)+FB2(SPCA), AR(SIC), VAR(SIC), VAR(SIC)+FB1(PCA), VAR(SIC)+FB2(PCA), VAR(SIC)+FB1(SPCA), and VAR(SIC)+FB2(SPCA). See~\cref{tab:model-description}, panel A.}
+
 These AR($p$) and VAR($p$) models are formulated as follows:
 \begin{equation}
 	\hat{y}_{t+1}(\tau) = \hat{c} + \hat{\beta}' W_t,
@@ -116,10 +91,18 @@ For the autoregressive model, $W_t$ contains $p$ lags of $y_{t+1}(\tau)$. For th
 In both models $\hat{\beta}$ is a time-invariant coefficient vector and $\hat{c}$ is a (vector of) constant(s). 
 We will be including AR(1) and VAR(1) models as a baseline. 
 Furthermore, we will be including AR and VAR specifications with up to 5 lags of $y_{t+1}(\tau)$ included. 
-The number of lags shall be selected using the Schwarz information criterion (SIC), see~\cref{sec:sic}.
+The number of lags shall be selected using the Schwarz information criterion.
+The Schwarz information criterion, also commonly referred to as the Bayesian information criterion, published by~\textcite[hereafter SIC]{schwarz_estimating_1978} is a model selection criterium, closely related to the Akaike information criterion~\parencite[hereafter AIC]{akaike_new_1974}. 
+It is defined as follows:
+\begin{equation}
+	SIC = k\ln{n} - 2\ln{\hat{L}},
+\end{equation}
+where $\hat{L}$ is the likelihood of the model, $n$ the number of observations and $k$ the number of model parameters estimated. The difference between SIC and AIC is the higher penalty given for the addition of extra parameters to compensate for the increase in likelihood.
 
 \subsection{Dynamic Nelson-Siegel (DNS) Models}
 \label{sec:dns}
+\textit{Models in this section are summarized by: DNS(1-6), DNS(1-6)+FB1(PCA), DNS(1-6)+FB2(PCA), DNS(1-6)+FB1(SPCA), DNS(1-6)+FB2(SPCA), and DNS(1-6)+MAC. See~\cref{tab:model-description}, panel B.}
+
 The Nelson-Siegel model, published by~\textcite{nelson_parsimonious_1987}, models the cross-sectional movement of the term structure using three underlying latent factors interpreted as \enquote{level}, \enquote{slope}, and \enquote{curvature}. 
 These factors are commonly known as the \enquote{Nelson-Siegel factors}. 
 The dynamic version of the Nelson-Siegel model was published by~\textcite[hereafter DNS]{diebold_forecasting_2006}. 
@@ -159,13 +142,13 @@ The DNS model, described in~\cref{sec:dns}, can be extended by including macroec
 	\hat{\beta}_{i,t+1}^{f} = \hat{c}_i + \hat{\gamma}_{ii} \hat{\beta}_{i,t}^f + \hat{\alpha}_i' M_t, \quad \text{for}~i = 1,2,3,
 \end{equation}
 where $\hat{\alpha}_i$ is a $3 \times 1$ vector, and $M_t$ is a $3 \times 1$ vector containing the macroeconomic variables \enquote{manufacturing capacity utilization}, \enquote{the federal funds rate}, and \enquote{the annual personal consumption expenditures price deflator}. 
-All other terms are conformably defined, see~\cref{sec:dns}. 
+All other terms are conformably defined. 
 Analogous to the AR(1) model, the VAR(1) given in~\cref{eq:dnsvar}, can also be extended by including macroeconomic variables:
 \begin{equation}
 	\hat{\beta}_{t+1}^{f} = \hat{c} + \hat{\Gamma} \hat{\beta}_t^f + \hat{\mathrm{A}} M_t,
 \end{equation}
 where $\hat{\mathrm{A}} = \left(\hat{\alpha}_1, \hat{\alpha}_2, \hat{\alpha}_3 \right)$, with $\hat{\alpha}_j$ a $3 \times 1$ vector, for $j = 1,2,3$. 
-All other terms are conformably defined, see~\cref{sec:dns}.
+All other terms are conformably defined.
 
 \subsubsection{DNS Models with Diffusion Indexes}
 \label{sec:dnsdif}
@@ -174,16 +157,18 @@ The DNS model given in~\cref{sec:dns}, can also be extended by including diffusi
 	\hat{\beta}_{i,t+1}^{f} = \hat{c}_i + \hat{\gamma}_{ii} \hat{\beta}_{i,t}^f + \hat{\xi}' F_t^b, \quad \text{for}~i = 1,2,3,
 \end{equation}
 where $F_t^b$ is defined as in~\cref{sec:dif} and $\hat{\xi}$ is a conformably sized (depending on the amount of factors included) vector of coefficients. 
-All other terms are conformably defined, see~\cref{sec:dns}. 
+All other terms are conformably defined. 
 Analogous to the AR(1) model, the VAR(1) given in~\cref{eq:dnsvar}, can also be extended by including diffusion indexes:
 \begin{equation}
 	\hat{\beta}_{t+1}^{f} = \hat{c} + \hat{\Gamma} \hat{\beta}_t^f + \hat{\Xi} F_t^b,
 \end{equation}
 where $\hat{\Xi}$ is a conformably sized (depending on the amount of factors included) matrix of coefficients. 
-All other terms are conformably defined, see~\cref{sec:dns}.
+All other terms are conformably defined.
 
 \subsection{Diffusion Index Models}
 \label{sec:dif}
+\textit{Models in this section are summarized by: DIF(1-9), DIF(1-3)+FB1(PCA), DIF(1-3)+FB2(PCA), DIF(1-3)+FB1(SPCA), and DIF(1-3)+FB2(SPCA). See~\cref{tab:model-description}, panel C.}
+
 Diffusion Index Models, also commonly referred to as \enquote{factor augmented forecast models}, as published by~\textcite[hereafter DIF]{stock_macroeconomic_2002,stock_forecasting_2002}, is an extension to regular forecast models, mostly (vector-)autoregressive models, supplemented by a vector of latent factors. 
 This model is formulated as follows:
 \begin{equation}
@@ -191,22 +176,31 @@ This model is formulated as follows:
 \end{equation}
 where $F_t^b$ contains either 1, 2, or 3 latent factors, estimated from the set of macroeconomic variables, using either PCA or SPCA (see~\cref{sec:spca}), $F_t^s$ contains either 1, 2, or 3 latent factors, estimated with PCA, from a set of 10 yields given by $\mathbf{y}_t^{10}(\tau)$, see~\cref{sec:dns}, and $\hat{\xi}$ and $\hat{\eta}$ are conformably sized (depending on the amount of factors included) vectors of coefficients. 
 
-\section{Predictive accuracy testing}
+\section{Model evaluation}
+\subsection{Mean Squared Prediction Error (MSPE)}
+\label{sec:mspe}
+The Mean Square Prediction Error, hereafter MSPE, is a metric for evaluating models in forecasting.
+It is defined as follows:
+\begin{equation}
+	MSPE = \frac{1}{q} \sum_{i=n+1}^{n+q} \left(Y_i - \hat{Y}_i \right)^2,
+\end{equation}
+where $n$ is the training sample and $q$ is the forecasting sample.
+
 \subsection{Diebold-Mariano (DM) Test}
 \label{sec:dmtest}
 The Diebold-Mariano Test, published by~\textcite[hereafter DM]{diebold_comparing_1994}, is a predictive accuracy test between two models. 
 The hypotheses are defined as follows:
 \begin{align*}
-	H_0 : E\left[L(u_{0,t+h}) - L(u_{1,t+h})\right] = 0, \\
-	H_A : E\left[L(u_{0,t+h}) - L(u_{1,t+h})\right] \neq 0,
+	H_0 : E\left[u_{0,t+h}^2 - u_{1,t+h}^2\right] = 0, \\
+	H_A : E\left[u_{0,t+h}^2 - u_{1,t+h}^2\right] \neq 0,
 \end{align*}
-where $L(\cdot)$ is a loss function, and $u_{0,t+h}$ and $u_{1,t+h}$ are $h$-step ahead forecast errors. 
+where $u_{0,t+h}$ and $u_{1,t+h}$ are $h$-step ahead forecast errors. 
 In practice, we only observe estimates of these out-of-sample $h$-step ahead forecasts, i.e. $\hat{u}_{0,t+h}$ and $\hat{u}_{1,t+h}$. The standard version of the DM predictive accuracy test is formulated as follows:
 \begin{equation}
 	DM_p = \frac{\bar{d_t}}{\hat{\sigma}_{\bar{d}_t}} \overset{d}{\rightarrow} N(0,1),
 \end{equation}
 where
 \begin{equation}
-	\bar{d}_t = \frac{1}{q} \sum_{t=n+1}^{n+q} d_t,\ d_t = L(\hat{u}_{0,t+h}) - L(\hat{u}_{1,t+h}),\ \text{and}\ \hat{\sigma}_{\bar{d}_t} = \frac{\hat{\sigma}_{d_t}}{\sqrt{q}}.
+	\bar{d}_t = \frac{1}{q} \sum_{t=n+1}^{n+q} d_t,\ d_t = \hat{u}_{0,t+h}^2 - \hat{u}_{1,t+h}^2,\ \text{and}\ \hat{\sigma}_{\bar{d}_t} = \frac{\hat{\sigma}_{d_t}}{\sqrt{q}}.
 \end{equation}
-In the formulation above, $q$ is the number of forecasts, $n$ is the number of observations in the training sample, and $\hat{\sigma}_{d_t}$ is the standard deviation of the forecast errors. In this paper, we use $L(u) = u^2$ as our loss function.
+In the formulation above, $q$ is the number of forecasts, $n$ is the number of observations in the training sample, and $\hat{\sigma}_{d_t}$ is the standard deviation of the forecast errors.

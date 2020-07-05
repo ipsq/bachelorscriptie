@@ -1,16 +1,18 @@
 \Cref{tab:forecasts-fullsample,tab:forecasts-sample-1,tab:forecasts-sample-2,tab:forecasts-sample-3} contain relative MSPEs for yield forecasts constructed using the models listed in \cref{tab:model-description}, for $h = 1$, for $\tau = 1, 2, 3, 5, 10$ year maturities, and for 4 different forecasting samples, listed in \cref{sec:samples}. 
 We used the simple AR(1) model as the benchmark for the relative MSPEs. 
 Analyzing our results, some observations can be made. 
-When comparing our results to those of \textcite{swanson_big_2017}, some similarities exist but the order of magnitude of our results differ greatly to those of \citeauthor{swanson_big_2017}. 
-Especially in subsample 1 and the full sample, do our models almost never beat the simple benchmark model, contrary to the results of \citeauthor{swanson_big_2017}, where the factor augmented DNS models perform best for the lower maturities ($\tau = 1, 2, 3$).
+When comparing our results to those of~\textcite{swanson_big_2017}, some similarities exist but the order of magnitude of our results differ greatly to those of~\citeauthor{swanson_big_2017}. 
+Especially in subsample 1 and the full sample, do our models almost never beat the simple benchmark model, contrary to the results of~\citeauthor{swanson_big_2017}, where the factor augmented DNS models perform best for the lower maturities ($\tau = 1, 2, 3$).
 
-The reason for these large deviations in results could have a couple reasons. All our models were implemented using maximum likelihood estimation (MLE). 
-MLE problems are most commonly solved using line search algorithms which do not provide a deterministic result. 
+The reason for these large deviations in results compared to \textcite{swanson_big_2017} could have a couple reasons. 
+All our models were implemented using maximum likelihood estimation (MLE). 
+MLE formulations are most commonly solved using line search algorithms which do not provide a deterministic result and thus could differ from run to run. 
 We also used a slightly different sample from the ones used by \citeauthor{swanson_big_2017}. 
-We extended subsample 1 and the full sample to include 3 more months of post-recession data and extended subsample 3 and the full sample to include additional data points \citeauthor{swanson_big_2017} did not have access to yet, at the time. 
-Subsample 2 remains unchanged.
+We extended subsample 1 and the full sample to include 3 more months of post-recession data and extended subsample 3 and the full sample to include additional data points \citeauthor{swanson_big_2017} did not have access to at the time. 
+Another possible reason for the deviations could be that~\citeauthor{swanson_big_2017} demeaned the data and removed any seasonality. 
+There was no reference of this in~\textcite{swanson_big_2017} but it is commonly applied to data when working with AR and VAR models since they cannot correctly model non-stationary processes. 
 
-All tables contain the relative mean squared prediction errors, relative to the benchmark AR(1) model. 
+Moving forward, all tables contain the relative mean squared prediction errors, relative to the benchmark AR(1) model. 
 The models, as listed in the first column, are summarized in~\cref{tab:model-description}. 
 Entries in bold denote models with the lowest MSPE for a given maturity. 
 Entries superscripted with \sym{*}, \sym{**}, and \sym{***} denote rejections of the null hypotheses of equal predictive accuracy compared with the benchmark AR(1) at 0.10, 0.05, and 0.01 significance levels, respectively, based on the application of the DM-test, see~\cref{sec:dmtest}. 

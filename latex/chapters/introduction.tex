@@ -1,16 +1,28 @@
-With the price per gigabyte dropping each year and Moore's law still holding up \parencite{schaller_moores_1997}, it is no surprise that companies are amassing very large sets of data. 
+With the price per gigabyte dropping each year and Moore's law still holding up \parencite{schaller_moores_1997,waldrop_chips_2016,moore_cramming_2006}, it is no surprise that companies are amassing very large sets of data. 
 Forbes even coined the phrase: \enquote{Data is the new oil}, see~\textcite{bhageshpur_council_2019}. 
 Consequently, a lot of research has been done the last 20 years for new method of analyzing and using these big datasets. 
 One strand of this new research has focussed its attention to methods of penalized regression. 
 \Textcite{bell_solutions_1978,tibshirani_regression_1996,zou_regularization_2005} have contributed the ridge regressor, the lasso regressor and the elastic net, respectively. All of these methods are still used by researchers today. 
 The amount of different shrinkage methods researchers can choose from today is immense, see~\textcite{bai_forecasting_2008,bai_boosting_2009,schumacher_factor_2010,stock_generalized_2012,kim_forecasting_2014,kim_mining_2018,hirano_forecasting_2017}. 
-Other research has focused its attention towards dimension reduction, PCA being one of the best known. 
+Other research has focused its attention towards dimension reduction, principal component analysis being one of the best known. 
 The question that remains to be answered is, what gains in predictive power have these new methods of data aggregation and reduction gotten us? 
+
+To compare these different models, we use them to model the yield curve of government bonds. 
+Popular approaches of modeling the term structure of interest rates are no-arbitrage models, equilibrium models and factor models. 
+The no-arbitrage approach focuses on fitting the term structure whilst ensuring that no arbitrage opportunities exist. 
+Prominent publications for no-arbitrage modeling include \textcite{heath_bond_1992,hull_pricing_1990}.
+The equilibrium approach focuses on modeling the dynamics of the instantaneous rate using affine models.
+Prominent publications for affine equilibrium models include \textcite{vasicek_equilibrium_1977,cox_theory_1985,duffie_yield-factor_1996}.
+No-arbitrage models and equilibrium models are notoriously bad for forecasting, see~\textcite{duffee_term_2002}.
+The factor model approach takes a more data driven approach to fitting the term structure. 
+Prominent publications for factors models include \textcite{dai_specification_2000,de_jong_dynamics_1999,de_jong_time_2000,brandt_time-consistent_2003,duffee_term_2002,diebold_forecasting_2006}. 
+Combinations of the above mentioned approaches have also been published, see~\textcite{christensen_arbitragefree_2009,christensen_affine_2011}.
+We only consider the model presented by~\textcite{diebold_forecasting_2006} in this paper.
 
 In this paper, I replicate the findings of~\textcite{swanson_big_2017} by fitting numerous different models, some augmented with principal components based on a macroeconomic dataset, to yield curve data and compute its Mean Squared Prediction Error in order to find the model that is best forecasting future yields. 
 Furthermore, I extend this research by including models augmented with sparse principal components obtained using the algorithm presented by~\textcite{zou_sparse_2006} and compare these models with the models augmented with principal components. 
 
-This paper is organized as follows: \cref{chap:methodology} describes model selection criteria, dimensions reduction techniques, gives a detailed explanation of the models used for forecasting and specifies the predictive accuracy test used in this paper. 
+This paper is organized as follows: \cref{chap:methodology} describes dimensions reduction techniques, gives a detailed explanation of the models used for forecasting and specifies the model evaluation techniques used in this paper. 
 \Cref{chap:data} describes how we obtained the data used for this research and the different samples we used, including a surface plot for visualizing the data. 
 \Cref{chap:results} gives a detailed interpretation of the our results and \cref{chap:conclusion} concludes this research and gives a short discussion. 
 The code for reproduction of our results is available at \url{https://github.com/ipsq/bachelorscriptie}. 

@@ -1,0 +1,12 @@
+The goal of this paper was to replicate the findings of \textcite{swanson_big_2017} and to extend their research by including an additional dimension reduction technique in the form of sparse principal components. 
+The model forecasts differ in predictive power very significantly based on the economic situation of the sample that was used to estimate the model. 
+Simple models appear to perform better in forecast scenarios when both an economic recession and upturn are included in the sample.
+We believe this to be the affect of sudden changes in interest rates by the Federal Reserve.
+These changes cannot be captured accurately by our models and introduce errors.
+It is also apparent that when a sample only includes an economic upturn, as was the case with our second sample, the dynamic Nelson-Siegel models perform best in predictive accuracy. 
+When comparing different DNS model formulations, there was no clear winner for all maturities. 
+We find that VAR formulations perform better for smaller maturities and AR formulations perform better for longer maturities. 
+For diffusion index models, we cannot draw any conclusions from our results. 
+It appeared there is no significant difference between factor augmented and non factor augmented models. 
+For our extension, it is clear that sparse principal component analysis is outperforming standard principal component analysis significantly.
+This leads us to believe that the increase in parsimony of the underlying factors manages to extract more important information out of the data than standard principal component analysis.

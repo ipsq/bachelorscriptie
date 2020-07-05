@@ -2,13 +2,13 @@ To show the positive impact big data has had on our ability to correctly model t
 The models and predictive accuracy tests are based on those presented in~\textcite{swanson_big_2017}. 
 The small data models are autoregressive, vector autoregressive, and dynamic Nelson-Siegel models. 
 The big data models are diffusion index models estimated from a macroeconomic dataset, using dimension reduction techniques described in~\cref{sec:dimension-reduction}. 
-A descriptive overview of the models used is given in~\cref{tab:model-description}.
-A detailed explanation of the models used is given in~\cref{sec:models}.
+Descriptive overview of the models used is given in~\cref{tab:model-description}.
+Detailed explanation of the models used is given in~\cref{sec:models}.
 The models are (re-)estimated prior to construction of each forecast, using a rolling window of 120 months.
 Estimation of the models is done using maximum likelihood estimation and, where necessary, (sparse) principal component analysis. 
 Monthly yield $h = 1-$step ahead forecasts are constructed for the bond maturities $\tau = 1-$, $2-$, $3-$, $5-$, and $10-$years. 
-Performance of these models is assessed by mean square prediction error (MSPE) and models are compared for predictive accuracy, against the benchmark AR(1) model, using~\textcite[hereafter DM]{diebold_comparing_1994}. 
-We are also comparing the predictive accuracy of various variations of DNS models, Diffusion Index models, and we are comparing PCA augmented models to SPCA augmented models, using the DM test. 
+Performance of these models is assessed by mean square prediction error and models are compared for predictive accuracy, against the benchmark autoregressive model with a lag order of 1, using~\textcite{diebold_comparing_1994}. 
+We are also comparing the predictive accuracy of various variations of dynamic Nelson-Siegel models, diffusion index models, and we are comparing principal component analysis augmented models to sparse principal component analysis augmented models, using the test presented by~\citeauthor{diebold_comparing_1994}. 
 
 \section{Dimension reduction}
 \label{sec:dimension-reduction}
@@ -195,7 +195,8 @@ The hypotheses are defined as follows:
 	H_A : E\left[u_{0,t+h}^2 - u_{1,t+h}^2\right] \neq 0,
 \end{align*}
 where $u_{0,t+h}$ and $u_{1,t+h}$ are $h$-step ahead forecast errors. 
-In practice, we only observe estimates of these out-of-sample $h$-step ahead forecasts, i.e. $\hat{u}_{0,t+h}$ and $\hat{u}_{1,t+h}$. The standard version of the DM predictive accuracy test is formulated as follows:
+In practice, we only observe estimates of these out-of-sample $h$-step ahead forecasts, i.e. $\hat{u}_{0,t+h}$ and $\hat{u}_{1,t+h}$. 
+The standard version of the DM predictive accuracy test is formulated as follows:
 \begin{equation}
 	DM_p = \frac{\bar{d_t}}{\hat{\sigma}_{\bar{d}_t}} \overset{d}{\rightarrow} N(0,1),
 \end{equation}
